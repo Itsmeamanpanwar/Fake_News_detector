@@ -1,0 +1,26 @@
+[
+  {
+    "id": "E001",
+    "title": "Example public health guidance",
+    "source": "Example training document",
+    "url": "",
+    "published": "2026-01-01",
+    "text": "This is an illustrative training document. It does not establish a real-world medical claim. Replace it with a verified source before using the system for actual fact-checking."
+  },
+  {
+    "id": "E002",
+    "title": "Example historical claim",
+    "source": "Example training document",
+    "url": "",
+    "published": "2026-01-01",
+    "text": "This is an illustrative historical document. It contains placeholder text for testing the retrieval pipeline and is not evidence for any real historical claim."
+  },
+  {
+    "id": "E003",
+    "title": "Example unrelated document",
+    "source": "Example training document",
+    "url": "",
+    "published": "2026-01-01",
+    "text": "This document contains unrelated information about gardening, soil quality, watering schedules, and growing vegetables in a home garden."
+  }
+]

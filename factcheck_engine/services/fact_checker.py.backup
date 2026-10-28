@@ -1,0 +1,114 @@
+from factcheck_engine.services.semantic_retrieval import (
+    SemanticEvidenceRetriever,
+)
+from factcheck_engine.services.nli import NLIEvaluator
+
+
+class FactChecker:
+    def __init__(self):
+        print("\nInitializing semantic retrieval...")
+        self.retriever = SemanticEvidenceRetriever()
+
+        print("\nInitializing NLI evaluator...")
+        self.nli = NLIEvaluator()
+
+    def check_claim(self, claim, top_k=5):
+        claim = claim.strip()
+
+        if not claim:
+            raise ValueError("Claim cannot be empty.")
+
+        documents = self.retriever.search(claim, top_k=top_k)
+        evaluated = []
+
+        for document in documents:
+            result = self.nli.evaluate(claim, document["text"])
+
+            evaluated.append({
+                **document,
+                "nli": result,
+            })
+
+        # Placeholder documents are not usable factual evidence.
+        usable = [
+            item for item in evaluated
+            if item.get("evidence_status") == "verified"
+            and item.get("url")
+        ]
+
+        if not usable:
+            verdict = "INSUFFICIENT VERIFIED EVIDENCE"
+        else:
+            # Do not turn a single model prediction into a truth verdict.
+            supports = [
+                item for item in usable
+                if item["nli"]["entailment"] is not None
+                and item["nli"]["entailment"] >= 0.70
+            ]
+
+            contradicts = [
+                item for item in usable
+                if item["nli"]["contradiction"] is not None
+                and item["nli"]["contradiction"] >= 0.70
+            ]
+
+            if supports and contradicts:
+                verdict = "MIXED EVIDENCE"
+            elif supports:
+                verdict = "POTENTIALLY SUPPORTED"
+            elif contradicts:
+                verdict = "POTENTIALLY CONTRADICTED"
+            else:
+                verdict = "INCONCLUSIVE"
+
+        return {
+            "claim": claim,
+            "verdict": verdict,
+            "evidence": evaluated,
+        }
+
+
+def main():
+    checker = FactChecker()
+
+    claim = input("\nEnter a claim to fact-check: ").strip()
+
+    try:
+        report = checker.check_claim(claim)
+    except ValueError as error:
+        print(f"Error: {error}")
+        return
+
+    print("\n" + "=" * 65)
+    print("FACT-CHECKING REPORT")
+    print("=" * 65)
+    print("Claim:", report["claim"])
+    print("Assessment:", report["verdict"])
+
+    if not report["evidence"]:
+        print("\nNo evidence documents were retrieved.")
+
+    for index, item in enumerate(report["evidence"], start=1):
+        nli = item["nli"]
+
+        print(f"\n{index}. {item['title']}")
+        print("Evidence ID:", item["id"])
+        print("Similarity:", item["similarity"])
+        print("Status:", item["evidence_status"])
+        print("Source:", item["url"] or "No source URL provided")
+        print("Passage:", item["text"])
+
+        for label in ("entailment", "contradiction", "neutral"):
+            score = nli[label]
+            if score is not None:
+                print(f"{label.title()}: {score:.4f}")
+
+    print("\nLimitations:")
+    print("- Similarity does not establish truth.")
+    print("- NLI estimates text relationships, not factual accuracy.")
+    print("- Source reliability and evidence coverage require review.")
+    print("- This result is not a substitute for source-based verification.")
+
+
+if __name__ == "__main__":
+    main()

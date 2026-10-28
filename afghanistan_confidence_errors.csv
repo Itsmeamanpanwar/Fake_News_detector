@@ -1,0 +1,10 @@
+headline,actual,predicted,fake_score,real_score,actual_label,predicted_label,predicted_score
+Taliban sentenced 229 Christian missionaries to death,0,1,0.3663068760087558,0.6336931239912442,FAKE,REAL,0.6336931239912442
+"â€œWe had already issued several thousand Special Immigrant Visas .. to the (Afghan) translators, when I came into office.â€",0,1,0.39352158205296395,0.606478417947036,FAKE,REAL,0.606478417947036
+"The military left behind 27 humvees, light tactical vehicles that were replaced by MRAPs in Iraq and Afghanistan after they proved vulnerable to IED attacks",1,0,0.5890522691632312,0.4109477308367689,REAL,FAKE,0.5890522691632312
+229 Christian missionaries were sentenced to death in Afghanistan.,0,1,0.4458360913092464,0.5541639086907536,FAKE,REAL,0.5541639086907536
+"In President Barack Obamaâ€™s 2015 State of the Union address, ""the words â€˜al-Qaidaâ€™ were never used, the first time those words have not been used in a State of the Union address since February 2001.""",1,0,0.5383832271770779,0.4616167728229222,REAL,FAKE,0.5383832271770779
+About 40 people have been killed in shootings and clashes in the two months in the Himalayan region since Taliban overran Kabul on August,1,0,0.5250294688800755,0.4749705311199245,REAL,FAKE,0.5250294688800755
+"""He (Kirk) did violate Pentagon rules, twice actually, for improperly mingling politics with his military service.""",1,0,0.5234589376424151,0.47654106235758487,REAL,FAKE,0.5234589376424151
+The United States spent â€œ2 trillion dollars to train and equip the Afghan military over the past 20 years. They fell in a week.â€,0,1,0.48301022916055514,0.5169897708394449,FAKE,REAL,0.5169897708394449
+AFP image misrepresented as photo of Kabul blast,1,0,0.5030858740825177,0.4969141259174823,REAL,FAKE,0.5030858740825177

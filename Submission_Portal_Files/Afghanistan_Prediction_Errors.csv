@@ -1,0 +1,10 @@
+headline,actual,predicted,actual_label,predicted_label
+229 Christian missionaries were sentenced to death in Afghanistan.,0,1,FAKE,REAL
+Taliban sentenced 229 Christian missionaries to death,0,1,FAKE,REAL
+The United States spent â€œ2 trillion dollars to train and equip the Afghan military over the past 20 years. They fell in a week.â€,0,1,FAKE,REAL
+"â€œWe had already issued several thousand Special Immigrant Visas .. to the (Afghan) translators, when I came into office.â€",0,1,FAKE,REAL
+"The military left behind 27 humvees, light tactical vehicles that were replaced by MRAPs in Iraq and Afghanistan after they proved vulnerable to IED attacks",1,0,REAL,FAKE
+"In President Barack Obamaâ€™s 2015 State of the Union address, ""the words â€˜al-Qaidaâ€™ were never used, the first time those words have not been used in a State of the Union address since February 2001.""",1,0,REAL,FAKE
+About 40 people have been killed in shootings and clashes in the two months in the Himalayan region since Taliban overran Kabul on August,1,0,REAL,FAKE
+"""He (Kirk) did violate Pentagon rules, twice actually, for improperly mingling politics with his military service.""",1,0,REAL,FAKE
+AFP image misrepresented as photo of Kabul blast,1,0,REAL,FAKE

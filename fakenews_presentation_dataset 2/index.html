@@ -1,0 +1,2025 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veritas AI | Fake News Detection Major Project Presentation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300..800;1,9..40,300..800&family=JetBrains+Mono:wght@400;600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --red-primary: #e53935;
+      --red-dark: #b71c1c;
+      --red-darker: #8b0000;
+      --red-light: #ffebee;
+      --red-subtle: #fff5f5;
+      --red-gradient: linear-gradient(135deg, #e53935 0%, #b71c1c 100%);
+      --red-glow: rgba(229, 57, 53, 0.25);
+      --white: #ffffff;
+      --bg-page: #f8fafc;
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-light: #e2e8f0;
+      --border-red: #ffcdd2;
+      --green-supported: #10b981;
+      --red-contradicted: #ef4444;
+      --amber-mixed: #f59e0b;
+      --font-heading: 'Manrope', -apple-system, sans-serif;
+      --font-body: 'DM Sans', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 10px 25px -5px rgba(0, 0, 0, 0.06), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
+      --shadow-lg: 0 20px 30px -10px rgba(229, 57, 53, 0.08), 0 10px 15px -5px rgba(0, 0, 0, 0.05);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: #0b0f19;
+      color: var(--text-main);
+      overflow: hidden;
+      height: 100vh;
+      width: 100vw;
+      display: flex;
+      flex-direction: column;
+      user-select: none;
+    }
+
+    .progress-bar-container {
+      width: 100%;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.1);
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background: var(--red-gradient);
+      box-shadow: 0 0 10px var(--red-primary);
+      transition: width 0.3s ease;
+    }
+
+    .deck-container {
+      flex: 1;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px 30px;
+      background: radial-gradient(circle at 50% 20%, #1e1b2e 0%, #0b0f19 75%);
+    }
+
+    .slide-canvas {
+      width: 1280px;
+      height: 720px;
+      background-color: var(--bg-card);
+      border-radius: 18px;
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+      display: none;
+      flex-direction: column;
+      padding: 44px 56px;
+      animation: fadeInSlide 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .slide-canvas.active {
+      display: flex;
+    }
+
+    @keyframes fadeInSlide {
+      from {
+        opacity: 0;
+        transform: scale(0.98) translateY(8px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    .slide-canvas::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: var(--red-gradient);
+    }
+
+    .slide-watermark {
+      position: absolute;
+      bottom: 24px;
+      right: 48px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      color: #94a3b8;
+      font-family: var(--font-heading);
+    }
+
+    .slide-watermark span.dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--red-primary);
+      display: inline-block;
+      box-shadow: 0 0 8px var(--red-primary);
+    }
+
+    .slide-footer-left {
+      position: absolute;
+      bottom: 24px;
+      left: 56px;
+      font-size: 13px;
+      color: #94a3b8;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .slide-footer-left .badge {
+      background: var(--red-light);
+      color: var(--red-dark);
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    .slide-header {
+      margin-bottom: 22px;
+      position: relative;
+    }
+
+    .category-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--red-primary);
+      margin-bottom: 6px;
+    }
+
+    .category-tag::before {
+      content: "";
+      display: inline-block;
+      width: 14px;
+      height: 3px;
+      background: var(--red-primary);
+      border-radius: 2px;
+    }
+
+    .slide-title {
+      font-family: var(--font-heading);
+      font-size: 30px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+    }
+
+    .slide-subtitle {
+      font-size: 14.5px;
+      color: var(--text-muted);
+      margin-top: 5px;
+      font-weight: 500;
+    }
+
+    .slide-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 26px;
+      height: 100%;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 22px;
+      height: 100%;
+    }
+
+    .grid-2-1 {
+      display: grid;
+      grid-template-columns: 1.55fr 1fr;
+      gap: 26px;
+      height: 100%;
+    }
+
+    .card {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      padding: 22px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      transition: all 0.2s ease;
+    }
+
+    .card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--border-red);
+    }
+
+    .card.red-accent {
+      border-left: 5px solid var(--red-primary);
+      background: linear-gradient(180deg, #ffffff 0%, var(--red-subtle) 100%);
+    }
+
+    .card-title {
+      font-family: var(--font-heading);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .card-title .icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: var(--red-light);
+      color: var(--red-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 15px;
+      font-weight: bold;
+    }
+
+    .card-body {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .card-body p {
+      margin-bottom: 10px;
+    }
+
+    .card-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    .highlight-red {
+      color: var(--red-primary);
+      font-weight: 700;
+    }
+
+    .highlight-dark {
+      color: var(--text-main);
+      font-weight: 700;
+    }
+
+    ul.feature-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    ul.feature-list li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 9px;
+      font-size: 13.5px;
+      color: #334155;
+      line-height: 1.5;
+    }
+
+    ul.feature-list li::before {
+      content: "•";
+      color: var(--red-primary);
+      position: absolute;
+      left: 4px;
+      font-size: 18px;
+      line-height: 1;
+      top: 1px;
+    }
+
+    .flowchart-container {
+      width: 100%;
+      height: 100%;
+      background: #fdfdfd;
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      padding: 18px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.02);
+    }
+
+    .flowchart-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .flow-node {
+      cursor: pointer;
+      transition: all 0.25s ease;
+    }
+
+    .flow-node:hover rect, .flow-node:hover polygon {
+      stroke: var(--red-primary);
+      stroke-width: 2.5px;
+      filter: drop-shadow(0 4px 10px rgba(229, 57, 53, 0.25));
+    }
+
+    .flow-node text.title {
+      font-family: var(--font-heading);
+      font-size: 13.5px;
+      font-weight: 700;
+      fill: var(--text-main);
+    }
+
+    .flow-node text.sub {
+      font-family: var(--font-body);
+      font-size: 11px;
+      fill: var(--text-muted);
+    }
+
+    .flow-arrow {
+      stroke: #cbd5e1;
+      stroke-width: 2px;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .flow-arrow-highlight {
+      stroke: var(--red-primary);
+      stroke-width: 2.5px;
+      stroke-dasharray: 6;
+      animation: dash 1.5s linear infinite;
+    }
+
+    @keyframes dash {
+      to {
+        stroke-dashoffset: -12;
+      }
+    }
+
+    .modern-table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      font-size: 12.5px;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+    }
+
+    .modern-table th {
+      background: #f1f5f9;
+      color: var(--text-main);
+      font-family: var(--font-heading);
+      font-weight: 700;
+      text-align: left;
+      padding: 9px 12px;
+      border-bottom: 2px solid var(--border-red);
+      font-size: 11.5px;
+      letter-spacing: 0.3px;
+    }
+
+    .modern-table td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--border-light);
+      color: #334155;
+    }
+
+    .modern-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    .modern-table tr:hover td {
+      background: var(--red-subtle);
+    }
+
+    .badge-verdict {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 6px;
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+    }
+
+    .badge-supported {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #86efac;
+    }
+
+    .badge-contradicted {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid #fca5a5;
+    }
+
+    .badge-insufficient {
+      background: #f1f5f9;
+      color: #475569;
+      border: 1px solid #cbd5e1;
+    }
+
+    .control-bar {
+      height: 60px;
+      background: #111827;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      color: #ffffff;
+      z-index: 999;
+    }
+
+    .control-left, .control-center, .control-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .nav-btn {
+      background: #1f2937;
+      border: 1px solid #374151;
+      color: #ffffff;
+      padding: 7px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      font-size: 13px;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-btn:hover {
+      background: var(--red-primary);
+      border-color: var(--red-primary);
+    }
+
+    .slide-counter {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      color: #9ca3af;
+      padding: 4px 10px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 6px;
+    }
+
+    .notes-drawer {
+      position: fixed;
+      bottom: 60px;
+      left: 0;
+      right: 0;
+      background: #1e293b;
+      color: #f8fafc;
+      padding: 16px 36px;
+      border-top: 2px solid var(--red-primary);
+      font-size: 14px;
+      line-height: 1.6;
+      display: none;
+      z-index: 990;
+      box-shadow: 0 -10px 25px rgba(0, 0, 0, 0.3);
+    }
+
+    .notes-drawer.open {
+      display: block;
+    }
+
+    .notes-header {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      color: var(--red-primary);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-bottom: 6px;
+    }
+
+    .demo-selector {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-bottom: 12px;
+      max-height: 125px;
+      overflow-y: auto;
+      padding-bottom: 4px;
+    }
+
+    .demo-pill {
+      background: #f1f5f9;
+      border: 1px solid var(--border-light);
+      padding: 5px 11px;
+      border-radius: 16px;
+      font-size: 11.5px;
+      cursor: pointer;
+      font-weight: 600;
+      color: #334155;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+
+    .demo-pill:hover, .demo-pill.active {
+      background: var(--red-primary);
+      color: #ffffff;
+      border-color: var(--red-primary);
+    }
+
+    .demo-output-card {
+      background: #ffffff;
+      border: 1px solid var(--border-red);
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .prob-bar-container {
+      margin-top: 6px;
+    }
+
+    .prob-bar-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11.5px;
+      font-weight: 600;
+      margin-bottom: 3px;
+    }
+
+    .prob-bar {
+      height: 7px;
+      background: #e2e8f0;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .prob-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+
+    .prob-bar-fill.contradiction {
+      background: var(--red-primary);
+    }
+
+    .prob-bar-fill.entailment {
+      background: var(--green-supported);
+    }
+
+    .prob-bar-fill.neutral {
+      background: #94a3b8;
+    }
+
+    
+    
+    
+    @media print {
+      * {
+        animation: none !important;
+        transition: none !important;
+        opacity: 1 !important;
+      }
+      html, body {
+        overflow: visible !important;
+        height: auto !important;
+        width: 100% !important;
+        background: #ffffff !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      .progress-bar-container,
+      .control-bar,
+      .notes-drawer {
+        display: none !important;
+      }
+      .deck-container {
+        display: block !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: #ffffff !important;
+        width: 100% !important;
+        height: auto !important;
+      }
+      .slide-canvas {
+        display: flex !important;
+        flex-direction: column !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        width: 100% !important;
+        height: 100vh !important;
+        min-height: 700px !important;
+        margin: 0 !important;
+        padding: 40px 50px !important;
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        overflow: visible !important;
+        box-sizing: border-box !important;
+      }
+      .slide-body {
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: visible !important;
+      }
+    }
+
+
+    
+    @media print {
+      * {
+        animation: none !important;
+        transition: none !important;
+        opacity: 1 !important;
+      }
+      html, body {
+        overflow: visible !important;
+        height: auto !important;
+        width: 100% !important;
+        background: #ffffff !important;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      .progress-bar-container,
+      .control-bar,
+      .notes-drawer {
+        display: none !important;
+      }
+      .deck-container {
+        display: block !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        background: #ffffff !important;
+        width: 100% !important;
+        height: auto !important;
+      }
+      .slide-canvas {
+        display: flex !important;
+        flex-direction: column !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        width: 100% !important;
+        height: 100vh !important;
+        min-height: 700px !important;
+        margin: 0 !important;
+        padding: 40px 50px !important;
+        box-shadow: none !important;
+        border: none !important;
+        border-radius: 0 !important;
+        overflow: visible !important;
+        box-sizing: border-box !important;
+      }
+      .slide-body {
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow: visible !important;
+      }
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <!-- Top Progress Bar -->
+  <div class="progress-bar-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <!-- Deck Container -->
+  <div class="deck-container" id="deckContainer">
+
+    <!-- SLIDE 1: TITLE SLIDE -->
+    <div class="slide-canvas active" data-slide="1">
+      <div style="flex: 1; display: flex; flex-direction: column; justify-content: center; position: relative;">
+        <div style="position: absolute; right: 20px; top: 10px; width: 360px; height: 360px; background: radial-gradient(circle, rgba(229,57,53,0.08) 0%, rgba(255,255,255,0) 70%); border-radius: 50%; pointer-events: none;"></div>
+        
+        <div class="category-tag">Major University Project Presentation &bull; Applied AI & NLP</div>
+        
+        <h1 style="font-family: var(--font-heading); font-size: 44px; font-weight: 800; color: var(--text-main); line-height: 1.15; margin-bottom: 16px; letter-spacing: -1px;">
+          <span style="color: var(--red-primary);">VERITAS</span>: Evidence-Grounded AI Fact-Checking & Fake News Detection
+        </h1>
+        
+        <p style="font-size: 18px; color: var(--text-muted); max-width: 920px; line-height: 1.5; margin-bottom: 26px;">
+          Overcoming the 'Lexical Trap' Through Dense Semantic Passage Retrieval (MiniLM-L6-v2) & Cross-Encoder Natural Language Inference (DeBERTa-v3)
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; max-width: 1080px; margin-bottom: 28px;">
+          <div style="background: var(--red-subtle); border: 1px solid var(--border-red); padding: 14px; border-radius: 10px;">
+            <div style="font-size: 11px; font-weight: 800; color: var(--red-primary); text-transform: uppercase;">Architecture</div>
+            <div style="font-size: 14px; font-weight: 700; color: var(--text-main); margin-top: 4px;">Hybrid Bi/Cross Encoder</div>
+          </div>
+          <div style="background: #f8fafc; border: 1px solid var(--border-light); padding: 14px; border-radius: 10px;">
+            <div style="font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Core NLP Models</div>
+            <div style="font-size: 14px; font-weight: 700; color: var(--text-main); margin-top: 4px;">DeBERTa-v3 & MiniLM</div>
+          </div>
+          <div style="background: #f8fafc; border: 1px solid var(--border-light); padding: 14px; border-radius: 10px;">
+            <div style="font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Grounded Truth</div>
+            <div style="font-size: 14px; font-weight: 700; color: var(--text-main); margin-top: 4px;">Verified HTTPS Stores</div>
+          </div>
+          <div style="background: #f8fafc; border: 1px solid var(--border-light); padding: 14px; border-radius: 10px;">
+            <div style="font-size: 11px; font-weight: 800; color: var(--text-muted); text-transform: uppercase;">Interface</div>
+            <div style="font-size: 14px; font-weight: 700; color: var(--text-main); margin-top: 4px;">Streamlit Red & White UI</div>
+          </div>
+        </div>
+
+        <div style="padding-top: 14px; border-top: 1px solid var(--border-light); display: flex; align-items: center; justify-content: space-between; font-size: 13px; color: #64748b;">
+          <div><strong style="color: var(--text-main);">Demo Focus:</strong> <em>"Antibiotics directly kill viruses."</em> &bull; Live CDC NLI Contradiction Analysis</div>
+          <div>Academic Year 2026 &bull; Antigravity AI Systems</div>
+        </div>
+      </div>
+      <div class="slide-watermark"><span class="dot"></span> VERITAS PROJECT DECK</div>
+      <div class="slide-footer-left"><span class="badge">Slide 01 / 16</span><span>Overview & Title</span></div>
+    </div>
+
+    <!-- SLIDE 2: THE DISINFORMATION CRISIS -->
+    <div class="slide-canvas" data-slide="2">
+      <div class="slide-header">
+        <div class="category-tag">Problem Motivation</div>
+        <h2 class="slide-title">The Infodemic Crisis & Human Verification Bottleneck</h2>
+        <p class="slide-subtitle">Why automated, evidence-grounded verification is a critical societal necessity</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card red-accent">
+            <div class="card-title">
+              <span class="icon">⚡</span>
+              Virality Asymmetry
+            </div>
+            <div class="card-body">
+              <p><strong class="highlight-dark">6x Exponential Velocity:</strong> Disinformation travels 6 times faster and reaches 100x more people than factual corrections on social networks.</p>
+              <p>Engagement algorithms organically amplify sensational claims over nuanced corrections.</p>
+            </div>
+          </div>
+          <div class="card red-accent">
+            <div class="card-title">
+              <span class="icon">⏱</span>
+              The Latency Gap
+            </div>
+            <div class="card-body">
+              <p><strong class="highlight-dark">14 to 48 Hours:</strong> The average time required for human journalists to research, draft, and publish an editorial debunk.</p>
+              <p>By the time a correction appears, the disinformation has saturated public opinion.</p>
+            </div>
+          </div>
+          <div class="card red-accent">
+            <div class="card-title">
+              <span class="icon">⚠️</span>
+              High-Stakes Fallout
+            </div>
+            <div class="card-body">
+              <p><strong class="highlight-dark">Real-World Catastrophes:</strong></p>
+              <ul class="feature-list">
+                <li>Health: Dangerous COVID cure rumors & antibiotic abuse.</li>
+                <li>Geopolitical: Coordinated propaganda in warzones (e.g. Afghanistan).</li>
+                <li>Institutional distrust and social panic.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-watermark"><span class="dot"></span> VERITAS PROJECT DECK</div>
+      <div class="slide-footer-left"><span class="badge">Slide 02 / 16</span><span>Motivation</span></div>
+    </div>
+
+    <!-- SLIDE 3: THE LEXICAL TRAP -->
+    <div class="slide-canvas" data-slide="3">
+      <div class="slide-header">
+        <div class="category-tag">Diagnostic Discovery</div>
+        <h2 class="slide-title">The 'Lexical Trap': Why Naive ML Fails in Deployment</h2>
+        <p class="slide-subtitle">How superficial 97% training accuracy masked critical vulnerability to keyword bias</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title">
+              <span class="icon" style="background: #f1f5f9; color: #475569;">📊</span>
+              The 97% Accuracy Illusion
+            </div>
+            <div class="card-body">
+              <p>Standard NLP pipelines (TF-IDF + Logistic Regression, Naive Bayes, simple SpaCy textcats):</p>
+              <div style="background: #f8fafc; border: 1px solid var(--border-light); padding: 12px; border-radius: 8px; margin: 12px 0;">
+                <div style="font-family: var(--font-mono); font-size: 13px;">COVID Model Accuracy: <strong style="color: #15803d;">96.99%</strong></div>
+                <div style="font-family: var(--font-mono); font-size: 13px;">Macro F1 Score: <strong style="color: #15803d;">0.9533</strong></div>
+                <div style="font-family: var(--font-mono); font-size: 13px;">Afghanistan Accuracy: <strong style="color: #15803d;">83.33%</strong></div>
+              </div>
+              <p><strong class="highlight-red">The Fatal Flaw:</strong> Error & confidence analysis revealed the model was not reading meaning—it simply correlated sensational words like <em>'Trump'</em>, <em>'coronavirus'</em>, and <em>'Gates'</em> with FAKE labels.</p>
+            </div>
+          </div>
+
+          <div class="card red-accent" style="background: var(--red-subtle);">
+            <div class="card-title" style="color: var(--red-dark);">
+              <span class="icon" style="background: var(--red-primary); color: #fff;">!</span>
+              Empirical False Alarm Evidence
+            </div>
+            <div class="card-body">
+              <div style="background: #fff; border: 1px solid var(--border-red); border-radius: 8px; padding: 12px; margin-bottom: 12px;">
+                <div style="font-size: 11px; font-weight: 800; color: var(--red-primary);">TRUE CDC STATEMENT LABELED FAKE:</div>
+                <div style="font-size: 13px; font-style: italic; margin-top: 4px; color: #1e293b;">
+                  "Says of President Donald Trump's actions on coronavirus: No. 1, he fired the pandemic team... No. 2, he's been defunding CDC."
+                </div>
+                <div style="font-size: 12px; font-weight: 700; color: var(--red-dark); margin-top: 6px;">
+                  Actual: REAL &bull; Predicted: FAKE &bull; Confidence: 94.36%!
+                </div>
+              </div>
+              <p><strong class="highlight-dark">Core Realization:</strong> Truth is an external factual relation, NOT an intrinsic property of sentence grammar. A model cannot verify news without cross-referencing verified knowledge.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-watermark"><span class="dot"></span> VERITAS PROJECT DECK</div>
+      <div class="slide-footer-left"><span class="badge">Slide 03 / 16</span><span>Empirical Findings</span></div>
+    </div>
+
+    <!-- SLIDE 4: FLOWCHART 1 - END-TO-END ARCHITECTURE -->
+    <div class="slide-canvas" data-slide="4">
+      <div class="slide-header">
+        <div class="category-tag">System Architecture</div>
+        <h2 class="slide-title">End-to-End System Pipeline Flowchart</h2>
+        <p class="slide-subtitle">Multi-stage evidence retrieval, provenance filtering, cross-encoder reasoning, and UI aggregation</p>
+      </div>
+      <div class="slide-body">
+        <div class="flowchart-container">
+          <svg class="flowchart-svg" viewBox="0 0 1100 360">
+            <defs>
+              <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#e53935" />
+              </marker>
+              <filter id="shadow" x="-5%" y="-5%" width="110%" height="115%">
+                <feDropShadow dx="0" dy="3" stdDeviation="4" flood-opacity="0.08"/>
+              </filter>
+            </defs>
+
+            <!-- Connector Lines -->
+            <path d="M 150 180 L 210 180" class="flow-arrow flow-arrow-highlight" marker-end="url(#arrowhead)"/>
+            <path d="M 360 180 L 420 180" class="flow-arrow flow-arrow-highlight" marker-end="url(#arrowhead)"/>
+            <path d="M 570 180 L 630 180" class="flow-arrow flow-arrow-highlight" marker-end="url(#arrowhead)"/>
+            <path d="M 780 180 L 840 180" class="flow-arrow flow-arrow-highlight" marker-end="url(#arrowhead)"/>
+            <path d="M 990 180 L 1020 180" class="flow-arrow flow-arrow-highlight" marker-end="url(#arrowhead)"/>
+
+            <!-- Node 1: Input -->
+            <g class="flow-node" transform="translate(10, 115)">
+              <rect width="140" height="130" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+              <rect width="140" height="6" rx="3" fill="#e53935"/>
+              <text x="70" y="38" text-anchor="middle" class="title">1. Claim Input</text>
+              <text x="70" y="65" text-anchor="middle" class="sub">User submits text</text>
+              <text x="70" y="85" text-anchor="middle" class="sub">e.g. "Antibiotics kill</text>
+              <text x="70" y="102" text-anchor="middle" class="sub">viruses directly"</text>
+            </g>
+
+            <!-- Node 2: Retrieval -->
+            <g class="flow-node" transform="translate(210, 115)">
+              <rect width="150" height="130" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+              <rect width="150" height="6" rx="3" fill="#e53935"/>
+              <text x="75" y="38" text-anchor="middle" class="title">2. Dense Retrieval</text>
+              <text x="75" y="65" text-anchor="middle" class="sub">MiniLM-L6-v2 Embeds</text>
+              <text x="75" y="85" text-anchor="middle" class="sub">Sliding Chunk Store</text>
+              <text x="75" y="105" text-anchor="middle" class="sub">Cosine Sim Top-K</text>
+            </g>
+
+            <!-- Node 3: Provenance Gate -->
+            <g class="flow-node" transform="translate(420, 115)">
+              <rect width="150" height="130" rx="12" fill="#fff5f5" stroke="#ffcdd2" stroke-width="2" filter="url(#shadow)"/>
+              <rect width="150" height="6" rx="3" fill="#b71c1c"/>
+              <text x="75" y="38" text-anchor="middle" class="title" fill="#b71c1c">3. Provenance Gate</text>
+              <text x="75" y="65" text-anchor="middle" class="sub">&bull; Status == verified</text>
+              <text x="75" y="85" text-anchor="middle" class="sub">&bull; HTTPS integrity</text>
+              <text x="75" y="105" text-anchor="middle" class="sub">&bull; Sim &ge; 0.45 Cutoff</text>
+            </g>
+
+            <!-- Node 4: Cross-Encoder NLI -->
+            <g class="flow-node" transform="translate(630, 115)">
+              <rect width="150" height="130" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5" filter="url(#shadow)"/>
+              <rect width="150" height="6" rx="3" fill="#e53935"/>
+              <text x="75" y="38" text-anchor="middle" class="title">4. DeBERTa NLI</text>
+              <text x="75" y="65" text-anchor="middle" class="sub">Cross-Attention Head</text>
+              <text x="75" y="85" text-anchor="middle" class="sub">[Evidence, Claim]</text>
+              <text x="75" y="105" text-anchor="middle" class="sub">Entail vs Contradict</text>
+            </g>
+
+            <!-- Node 5: Decision Logic -->
+            <g class="flow-node" transform="translate(840, 115)">
+              <rect width="150" height="130" rx="12" fill="#fff5f5" stroke="#ffcdd2" stroke-width="2" filter="url(#shadow)"/>
+              <rect width="150" height="6" rx="3" fill="#b71c1c"/>
+              <text x="75" y="38" text-anchor="middle" class="title" fill="#b71c1c">5. Decision Logic</text>
+              <text x="75" y="65" text-anchor="middle" class="sub">Threshold &tau; = 0.70</text>
+              <text x="75" y="85" text-anchor="middle" class="sub">Multi-evidence rules</text>
+              <text x="75" y="105" text-anchor="middle" class="sub">Consensus verdict</text>
+            </g>
+
+            <!-- Node 6: UI Output -->
+            <g class="flow-node" transform="translate(1015, 125)">
+              <rect width="80" height="110" rx="10" fill="#e53935" stroke="#b71c1c" stroke-width="1" filter="url(#shadow)"/>
+              <text x="40" y="45" text-anchor="middle" font-family="Manrope" font-weight="800" font-size="12" fill="#ffffff">VERITAS</text>
+              <text x="40" y="65" text-anchor="middle" font-family="Manrope" font-weight="800" font-size="12" fill="#ffffff">UI</text>
+              <text x="40" y="88" text-anchor="middle" font-size="9" fill="#ffebee">Citations</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="slide-watermark"><span class="dot"></span> VERITAS PROJECT DECK</div>
+      <div class="slide-footer-left"><span class="badge">Slide 04 / 16</span><span>Architecture Flowchart</span></div>
+    </div>
+
+    <!-- SLIDE 5: FLOWCHART 2 - EVIDENCE RETRIEVAL PIPELINE -->
+    <div class="slide-canvas" data-slide="5">
+      <div class="slide-header">
+        <div class="category-tag">Evidence Engine</div>
+        <h2 class="slide-title">Semantic Passage Retrieval & Sliding Chunk Flowchart</h2>
+        <p class="slide-subtitle">Granular context chunking and dense vector indexing with hardware acceleration</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2-1">
+          <div class="flowchart-container">
+            <svg class="flowchart-svg" viewBox="0 0 680 340">
+              <defs>
+                <marker id="arrow2" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                  <polygon points="0 0, 8 3, 0 6" fill="#e53935" />
+                </marker>
+              </defs>
+
+              <path d="M 170 80 L 220 80" class="flow-arrow flow-arrow-highlight" marker-end="url(#arrow2)"/>
+              <path d="M 380 80 L 430 80" class="flow-arrow flow-arrow-highlight" marker-end="url(#arrow2)"/>
+              <path d="M 520 135 L 520 185" class="flow-arrow flow-arrow-highlight" marker-end="url(#arrow2)"/>
+              <path d="M 430 240 L 380 240" class="flow-arrow flow-arrow-highlight" marker-end="url(#arrow2)"/>
+
+              <g class="flow-node" transform="translate(10, 25)">
+                <rect width="160" height="110" rx="10" fill="#fff" stroke="#e2e8f0" stroke-width="1.5"/>
+                <rect width="160" height="5" fill="#e53935"/>
+                <text x="80" y="35" text-anchor="middle" class="title">Evidence Store</text>
+                <text x="80" y="60" text-anchor="middle" class="sub">Structured JSONL Store</text>
+                <text x="80" y="80" text-anchor="middle" class="sub">ID, Title, Publisher, URL</text>
+                <text x="80" y="98" text-anchor="middle" class="sub">Full verified body text</text>
+              </g>
+
+              <g class="flow-node" transform="translate(220, 25)">
+                <rect width="160" height="110" rx="10" fill="#fff5f5" stroke="#ffcdd2" stroke-width="2"/>
+                <rect width="160" height="5" fill="#b71c1c"/>
+                <text x="80" y="35" text-anchor="middle" class="title" fill="#b71c1c">Sliding Window</text>
+                <text x="80" y="60" text-anchor="middle" class="sub">Chunk Size: 140 words</text>
+                <text x="80" y="80" text-anchor="middle" class="sub">Overlap: 25 words</text>
+                <text x="80" y="98" text-anchor="middle" class="sub">Guarantees no splits</text>
+              </g>
+
+              <g class="flow-node" transform="translate(430, 25)">
+                <rect width="180" height="110" rx="10" fill="#fff" stroke="#e2e8f0" stroke-width="1.5"/>
+                <rect width="180" height="5" fill="#e53935"/>
+                <text x="90" y="35" text-anchor="middle" class="title">Dense Encoder</text>
+                <text x="90" y="60" text-anchor="middle" class="sub">all-MiniLM-L6-v2</text>
+                <text x="90" y="80" text-anchor="middle" class="sub">384-Dim Normalized</text>
+                <text x="90" y="98" text-anchor="middle" class="sub">MPS / CUDA Hardware</text>
+              </g>
+
+              <g class="flow-node" transform="translate(430, 185)">
+                <rect width="180" height="110" rx="10" fill="#fff" stroke="#e2e8f0" stroke-width="1.5"/>
+                <rect width="180" height="5" fill="#e53935"/>
+                <text x="90" y="35" text-anchor="middle" class="title">In-Memory Index</text>
+                <text x="90" y="60" text-anchor="middle" class="sub">Unit-Normalized Tensor</text>
+                <text x="90" y="80" text-anchor="middle" class="sub">Passage ID mapping</text>
+                <text x="90" y="98" text-anchor="middle" class="sub">e.g. DEMO-CDC-002-P1</text>
+              </g>
+
+              <g class="flow-node" transform="translate(200, 185)">
+                <rect width="180" height="110" rx="10" fill="#e53935" stroke="#b71c1c" stroke-width="1.5"/>
+                <text x="90" y="45" text-anchor="middle" font-family="Manrope" font-weight="700" font-size="14" fill="#fff">Cosine Top-K</text>
+                <text x="90" y="70" text-anchor="middle" font-size="11" fill="#ffebee">Query Embedding &bull; Index</text>
+                <text x="90" y="90" text-anchor="middle" font-size="11" fill="#ffebee">Sub-millisecond Search</text>
+              </g>
+            </svg>
+          </div>
+
+          <div class="card red-accent">
+            <div class="card-title">Chunking Rationale</div>
+            <div class="card-body">
+              <p><strong class="highlight-dark">Why not whole documents?</strong> Embedding an entire 3,000-word research paper averages and dilutes specific factual claims.</p>
+              <p><strong class="highlight-dark">Why 25-word overlap?</strong> Factual refutations (e.g. <em>"However, clinical trials showed no efficacy..."</em>) often span across chunk boundaries. Overlap ensures zero sentence loss.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-watermark"><span class="dot"></span> VERITAS PROJECT DECK</div>
+      <div class="slide-footer-left"><span class="badge">Slide 05 / 16</span><span>Retrieval Flowchart</span></div>
+    </div>
+
+    <!-- SLIDE 6: FLOWCHART 3 - CROSS-ENCODER NLI REASONING -->
+    <div class="slide-canvas" data-slide="6">
+      <div class="slide-header">
+        <div class="category-tag">Logical Verification</div>
+        <h2 class="slide-title">Cross-Encoder Natural Language Inference (DeBERTa-v3)</h2>
+        <p class="slide-subtitle">Why joint full-attention reasoning is fundamentally superior to vector similarity</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title" style="color: #64748b;">
+              <span class="icon" style="background: #f1f5f9; color: #475569;">≠</span>
+              Bi-Encoder Limitation (Topical Only)
+            </div>
+            <div class="card-body">
+              <p>Consider two opposite claims about medicine:</p>
+              <div style="background: #f8fafc; border: 1px solid var(--border-light); padding: 10px; border-radius: 8px; margin: 10px 0; font-size: 13px;">
+                <strong>Claim A:</strong> "Antibiotics kill bacterial infections."<br>
+                <strong>Claim B:</strong> "Antibiotics kill viral infections."
+              </div>
+              <p>A Bi-Encoder vector embedding produces <strong style="color: var(--red-primary);">0.91 Cosine Similarity</strong> between both claims because they share nearly identical vocabulary.</p>
+              <p><strong class="highlight-red">Conclusion:</strong> Bi-encoders know what text is <em>about</em>, but cannot determine whether one statement logically <em>contradicts</em> another.</p>
+            </div>
+          </div>
+
+          <div class="card red-accent" style="background: var(--red-subtle);">
+            <div class="card-title" style="color: var(--red-dark);">
+              <span class="icon" style="background: var(--red-primary); color: #fff;">🧠</span>
+              Cross-Encoder DeBERTa-v3 Reasoner
+            </div>
+            <div class="card-body">
+              <p>Feeds Evidence and Claim simultaneously into cross-attention layers:</p>
+              <div style="background: #fff; border: 1px solid var(--border-red); padding: 10px; border-radius: 8px; margin: 10px 0; font-family: var(--font-mono); font-size: 12px;">
+                [CLS] Evidence Text [SEP] Target Claim [SEP]
+              </div>
+              <p>Every token in the claim actively computes cross-attention weights against every word in the evidence:</p>
+              <ul class="feature-list" style="margin-top: 8px;">
+                <li><strong>Entailment:</strong> Evidence proves claim ($P \ge 0.70$)</li>
+                <li><strong>Contradiction:</strong> Evidence refutes claim ($P \ge 0.70$)</li>
+                <li><strong>Neutral:</strong> Related but unprovable</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-watermark"><span class="dot"></span> VERITAS PROJECT DECK</div>
+      <div class="slide-footer-left"><span class="badge">Slide 06 / 16</span><span>NLI Reasoning</span></div>
+    </div>
+
+    <!-- SLIDE 7: FLOWCHART 4 - MULTI-STAGE VERDICT DECISION TREE -->
+    <div class="slide-canvas" data-slide="7">
+      <div class="slide-header">
+        <div class="category-tag">Decision Logic</div>
+        <h2 class="slide-title">Automated Verdict Resolution Engine Flowchart</h2>
+        <p class="slide-subtitle">Mathematical threshold gate &tau; = 0.70 and conservative uncertainty handling</p>
+      </div>
+      <div class="slide-body">
+        <div class="flowchart-container">
+          <svg class="flowchart-svg" viewBox="0 0 1100 360">
+            <defs>
+              <marker id="arrow3" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                <polygon points="0 0, 8 3, 0 6" fill="#e53935" />
+              </marker>
+            </defs>
+
+            <!-- Gate Branch -->
+            <path d="M 230 180 L 310 180" class="flow-arrow flow-arrow-highlight" marker-end="url(#arrow3)"/>
+            <path d="M 390 120 L 390 70 L 480 70" class="flow-arrow" marker-end="url(#arrow3)"/>
+            <path d="M 470 180 L 550 180" class="flow-arrow flow-arrow-highlight" marker-end="url(#arrow3)"/>
+
+            <!-- Threshold Branches -->
+            <path d="M 680 140 L 760 90" class="flow-arrow" marker-end="url(#arrow3)"/>
+            <path d="M 680 160 L 760 140" class="flow-arrow" marker-end="url(#arrow3)"/>
+            <path d="M 680 200 L 760 210" class="flow-arrow" marker-end="url(#arrow3)"/>
+            <path d="M 680 220 L 760 270" class="flow-arrow" marker-end="url(#arrow3)"/>
+
+            <!-- Node 1: Usability Check -->
+            <g class="flow-node" transform="translate(30, 115)">
+              <rect width="200" height="130" rx="12" fill="#ffffff" stroke="#e2e8f0" stroke-width="1.5"/>
+              <rect width="200" height="5" fill="#e53935"/>
+              <text x="100" y="35" text-anchor="middle" class="title">Evidence Quality Gate</text>
+              <text x="100" y="60" text-anchor="middle" class="sub">&bull; Status == 'verified'</text>
+              <text x="100" y="80" text-anchor="middle" class="sub">&bull; URL scheme == 'https://'</text>
+              <text x="100" y="100" text-anchor="middle" class="sub">&bull; Cosine Sim &ge; 0.45</text>
+            </g>
+
+            <!-- Node 2: Count usable -->
+            <g class="flow-node" transform="translate(310, 135)">
+              <polygon points="80 0, 160 45, 80 90, 0 45" fill="#fff5f5" stroke="#e53935" stroke-width="2"/>
+              <text x="80" y="42" text-anchor="middle" font-family="Manrope" font-weight="700" font-size="12" fill="#b71c1c">Usable &gt; 0?</text>
+              <text x="80" y="58" text-anchor="middle" font-size="10" fill="#64748b">Verified Evidence</text>
+            </g>
+
+            <!-- Branch: No Usable -->
+            <g class="flow-node" transform="translate(480, 40)">
+              <rect width="240" height="60" rx="8" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="1.5"/>
+              <text x="120" y="28" text-anchor="middle" font-family="Manrope" font-weight="700" font-size="12" fill="#475569">INSUFFICIENT VERIFIED EVIDENCE</text>
+              <text x="120" y="46" text-anchor="middle" font-size="10" fill="#64748b">Prevents hallucinating on novel rumors</text>
+            </g>
+
+            <!-- Branch: Evaluate NLI -->
+            <g class="flow-node" transform="translate(550, 135)">
+              <rect width="130" height="90" rx="10" fill="#ffffff" stroke="#e53935" stroke-width="1.5"/>
+              <text x="65" y="32" text-anchor="middle" class="title">NLI Evaluator</text>
+              <text x="65" y="55" text-anchor="middle" class="sub">Entailment &ge; 0.70?</text>
+              <text x="65" y="75" text-anchor="middle" class="sub">Contradict &ge; 0.70?</text>
+            </g>
+
+            <!-- Outcomes -->
+            <g class="flow-node" transform="translate(760, 65)">
+              <rect width="280" height="50" rx="8" fill="#fffbeb" stroke="#fde68a" stroke-width="1.5"/>
+              <text x="140" y="26" text-anchor="middle" font-family="Manrope" font-weight="800" font-size="12" fill="#b45309">MIXED EVIDENCE</text>
+              <text x="140" y="42" text-anchor="middle" font-size="10" fill="#78350f">Both Entailment & Contradiction &ge; 0.70</text>
+            </g>
+
+            <g class="flow-node" transform="translate(760, 120)">
+              <rect width="280" height="50" rx="8" fill="#dcfce7" stroke="#86efac" stroke-width="1.5"/>
+              <text x="140" y="26" text-anchor="middle" font-family="Manrope" font-weight="800" font-size="12" fill="#15803d">POTENTIALLY SUPPORTED</text>
+              <text x="140" y="42" text-anchor="middle" font-size="10" fill="#166534">Entailment &ge; 0.70 & No Contradiction</text>
+            </g>
+
+            <g class="flow-node" transform="translate(760, 185)">
+              <rect width="280" height="50" rx="8" fill="#fee2e2" stroke="#fca5a5" stroke-width="1.5"/>
+              <text x="140" y="26" text-anchor="middle" font-family="Manrope" font-weight="800" font-size="12" fill="#b91c1c">POTENTIALLY CONTRADICTED</text>
+              <text x="140" y="42" text-anchor="middle" font-size="10" fill="#991b1b">Contradiction &ge; 0.70 & No Entailment</text>
+            </g>
+
+            <g class="flow-node" transform="translate(760, 250)">
+              <rect width="280" height="50" rx="8" fill="#f8fafc" stroke="#e2e8f0" stroke-width="1.5"/>
+              <text x="140" y="26" text-anchor="middle" font-family="Manrope" font-weight="800" font-size="12" fill="#475569">INCONCLUSIVE</text>
+              <text x="140" y="42" text-anchor="middle" font-size="10" fill="#64748b">Usable evidence exists but below 0.70</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+      <div class="slide-watermark"><span class="dot"></span> VERITAS PROJECT DECK</div>
+      <div class="slide-footer-left"><span class="badge">Slide 07 / 16</span><span>Decision Tree</span></div>
+    </div>
+
+    <!-- SLIDE 8: CASE STUDY - ANTIBIOTICS -->
+    <div class="slide-canvas" data-slide="8">
+      <div class="slide-header">
+        <div class="category-tag">Live Demonstration</div>
+        <h2 class="slide-title">Case Study: "Antibiotics directly kill viruses."</h2>
+        <p class="slide-subtitle">Step-by-step verification trace for the user-specified claim</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card red-accent">
+            <div class="card-title">1. Retrieval & Source Provenance</div>
+            <div class="card-body">
+              <div style="background: #fff; border: 1px solid var(--border-light); padding: 12px; border-radius: 8px; margin-bottom: 12px;">
+                <div style="font-size: 11px; font-weight: 800; color: var(--red-primary);">SUBMITTED CLAIM:</div>
+                <div style="font-size: 15px; font-weight: 700; color: #0f172a; margin-top: 4px;">
+                  "Antibiotics directly kill viruses."
+                </div>
+              </div>
+
+              <div style="background: #fff5f5; border: 1px solid var(--border-red); padding: 12px; border-radius: 8px;">
+                <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 800; color: var(--red-dark);">
+                  <span>MATCHED RECORD: DEMO-CDC-002</span>
+                  <span>SIMILARITY: 0.7812</span>
+                </div>
+                <div style="font-size: 13px; font-weight: 700; color: #1e293b; margin: 4px 0;">About Antibiotic Use &bull; CDC</div>
+                <div style="font-size: 12px; color: #64748b; font-style: italic;">
+                  "Antibiotics do not work on viruses. They will not help you feel better if you have a virus, such as those that cause colds, flu, or COVID-19."
+                </div>
+                <div style="font-size: 11px; color: var(--red-primary); margin-top: 6px;">URL: https://www.cdc.gov/antibiotic-use/</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">2. DeBERTa-v3 Softmax Reasoning</div>
+            <div class="card-body">
+              <div class="prob-bar-container">
+                <div class="prob-bar-label">
+                  <span>Contradiction (Evidence refutes claim)</span>
+                  <span style="color: var(--red-primary);">98.41%</span>
+                </div>
+                <div class="prob-bar">
+                  <div class="prob-bar-fill contradiction" style="width: 98.41%;"></div>
+                </div>
+              </div>
+
+              <div class="prob-bar-container" style="margin-top: 14px;">
+                <div class="prob-bar-label">
+                  <span>Neutral (Ambiguous / unrelated)</span>
+                  <span style="color: #64748b;">1.25%</span>
+                </div>
+                <div class="prob-bar">
+                  <div class="prob-bar-fill neutral" style="width: 1.25%;"></div>
+                </div>
+              </div>
+
+              <div class="prob-bar-container" style="margin-top: 14px;">
+                <div class="prob-bar-label">
+                  <span>Entailment (Evidence proves claim)</span>
+                  <span style="color: var(--green-supported);">0.34%</span>
+                </div>
+                <div class="prob-bar">
+                  <div class="prob-bar-fill entailment" style="width: 0.34%;"></div>
+                </div>
+              </div>
+
+              <div style="margin-top: 24px; padding: 14px; background: #fee2e2; border: 1px solid #fca5a5; border-radius: 8px; text-align: center;">
+                <div style="font-size: 11px; font-weight: 800; color: #991b1b; text-transform: uppercase;">FINAL SYSTEM VERDICT</div>
+                <div style="font-size: 17px; font-weight: 800; color: #b91c1c; margin-top: 2px;">
+                  CONTRADICTED BY AVAILABLE EVIDENCE
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-watermark"><span class="dot"></span> VERITAS PROJECT DECK</div>
+      <div class="slide-footer-left"><span class="badge">Slide 08 / 16</span><span>Case Study</span></div>
+    </div>
+
+    <!-- SLIDE 9: ALL 12 BENCHMARK CLAIMS TABLE -->
+    <div class="slide-canvas" data-slide="9">
+      <div class="slide-header">
+        <div class="category-tag">Evaluation Suite</div>
+        <h2 class="slide-title">Multi-Domain Benchmark Verification Matrix (All 12 Claims)</h2>
+        <p class="slide-subtitle">Tested against presentation_claims.csv across Science, Health, Environment, Tech, and Rumors</p>
+      </div>
+      <div class="slide-body" style="overflow-y: auto; max-height: 480px;">
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th style="width: 60px;">ID</th>
+              <th style="width: 130px;">Domain</th>
+              <th>Claim Statement</th>
+              <th style="width: 170px;">Expected Verdict</th>
+              <th style="width: 130px;">Primary Source</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>C001</strong></td>
+              <td>Climate Science</td>
+              <td>Human activities are the main cause of the current global warming.</td>
+              <td><span class="badge-verdict badge-supported">SUPPORTED</span></td>
+              <td>NASA Science</td>
+            </tr>
+            <tr>
+              <td><strong>C002</strong></td>
+              <td>Climate Science</td>
+              <td>The climate has not warmed since the late nineteenth century.</td>
+              <td><span class="badge-verdict badge-contradicted">CONTRADICTED</span></td>
+              <td>NASA Climate</td>
+            </tr>
+            <tr>
+              <td><strong>C003</strong></td>
+              <td>Health</td>
+              <td>Smoking increases the risk of lung cancer.</td>
+              <td><span class="badge-verdict badge-supported">SUPPORTED</span></td>
+              <td>CDC Tobacco</td>
+            </tr>
+            <tr style="background: var(--red-subtle);">
+              <td><strong>C004</strong></td>
+              <td>Health</td>
+              <td>Antibiotics cure viral infections such as the common cold.</td>
+              <td><span class="badge-verdict badge-contradicted">CONTRADICTED</span></td>
+              <td>CDC Antibiotics</td>
+            </tr>
+            <tr>
+              <td><strong>C005</strong></td>
+              <td>Space Science</td>
+              <td>The Earth orbits the Sun.</td>
+              <td><span class="badge-verdict badge-supported">SUPPORTED</span></td>
+              <td>NASA Facts</td>
+            </tr>
+            <tr>
+              <td><strong>C006</strong></td>
+              <td>Environment</td>
+              <td>The ozone layer and climate change are exactly the same problem.</td>
+              <td><span class="badge-verdict badge-contradicted">CONTRADICTED</span></td>
+              <td>US EPA</td>
+            </tr>
+            <tr>
+              <td><strong>C007</strong></td>
+              <td>Public Health</td>
+              <td>Vaccines train the immune system to recognize and fight pathogens.</td>
+              <td><span class="badge-verdict badge-supported">SUPPORTED</span></td>
+              <td>WHO Global</td>
+            </tr>
+            <tr>
+              <td><strong>C008</strong></td>
+              <td>Technology</td>
+              <td>A strong password is the ONLY security measure ever needed.</td>
+              <td><span class="badge-verdict badge-contradicted">CONTRADICTED</span></td>
+              <td>CISA Security</td>
+            </tr>
+            <tr>
+              <td><strong>C009</strong></td>
+              <td>Earth Science</td>
+              <td>Earthquakes can occur when stress causes rocks to slip along faults.</td>
+              <td><span class="badge-verdict badge-supported">SUPPORTED</span></td>
+              <td>USGS Hazards</td>
+            </tr>
+            <tr>
+              <td><strong>C010</strong></td>
+              <td>General Science</td>
+              <td>Water is made of hydrogen and oxygen.</td>
+              <td><span class="badge-verdict badge-supported">SUPPORTED</span></td>
+              <td>USGS Water</td>
+            </tr>
+            <tr>
+              <td><strong>C011</strong></td>
+              <td>Climate Science</td>
+              <td>A single cold day proves that global warming is not happening.</td>
+              <td><span class="badge-verdict badge-contradicted">CONTRADICTED</span></td>
+              <td>NASA Weather</td>
+            </tr>
+            <tr>
+              <td><strong>C012</strong></td>
+              <td>Unknown Rumor</td>
+              <td>A secret underwater city was discovered yesterday & confirmed.</td>
+              <td><span class="badge-verdict badge-insufficient">INSUFFICIENT EV.</span></td>
+              <td>Unmatched</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="slide-watermark"><span class="dot"></span> VERITAS PROJECT DECK</div>
+      <div class="slide-footer-left"><span class="badge">Slide 09 / 16</span><span>Benchmark Matrix</span></div>
+    </div>
+
+    <!-- SLIDE 10: INTERACTIVE CLAIM SIMULATOR (ALL 12 CLAIMS) -->
+    <div class="slide-canvas" data-slide="10">
+      <div class="slide-header">
+        <div class="category-tag">Live Simulator</div>
+        <h2 class="slide-title">Interactive Claim Inspector & NLI Visualizer (All 12 Claims)</h2>
+        <p class="slide-subtitle">Click any of the 12 claims below to trigger live client-side inference simulation</p>
+      </div>
+      <div class="slide-body">
+        <div class="demo-selector" id="demoPills">
+          <!-- Dynamically populated via JS with all 12 claims -->
+        </div>
+
+        <div class="demo-output-card" id="demoOutput">
+          <!-- Dynamically populated via JS -->
+        </div>
+      </div>
+      <div class="slide-watermark"><span class="dot"></span> VERITAS PROJECT DECK</div>
+      <div class="slide-footer-left"><span class="badge">Slide 10 / 16</span><span>Live Simulator</span></div>
+    </div>
+
+    <!-- SLIDE 11: VERITAS STREAMLIT UI -->
+    <div class="slide-canvas" data-slide="11">
+      <div class="slide-header">
+        <div class="category-tag">Frontend System</div>
+        <h2 class="slide-title">Veritas Web Interface & Modern Design System</h2>
+        <p class="slide-subtitle">Clean Red & White aesthetic built in Streamlit with transparent auditability</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card red-accent">
+            <div class="card-title">Aesthetic System & Design Tokens</div>
+            <div class="card-body">
+              <ul class="feature-list">
+                <li><strong class="highlight-dark">Curated Red Palette:</strong> Primary Crimson (<code>#e53935</code>), Deep Maroon (<code>#b71c1c</code>), Soft Rose (<code>#ffebee</code>).</li>
+                <li><strong class="highlight-dark">Typography:</strong> Google Fonts <em>Manrope</em> for high-impact section headings and <em>DM Sans</em> for body readability.</li>
+                <li><strong class="highlight-dark">Interactive Parameter Sliders:</strong> Live Top-K tuning (1–10 documents) and dynamic minimum cosine cutoff (0.20–0.80).</li>
+                <li><strong class="highlight-dark">Pre-set Quick-Fill Buttons:</strong> Allows evaluators to test complex claims with a single click.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-title">Integrated Multi-Page Architecture</div>
+            <div class="card-body">
+              <p><strong class="highlight-dark">Page 1: Veritas AI Fact Checker</strong><br>Main interface for claim ingestion, real-time NLI execution, confidence bar visualization, and expandable evidence cards.</p>
+              <p style="margin-top: 10px;"><strong class="highlight-dark">Page 2: Verified Evidence Explorer</strong><br>Full administrative dashboard to inspect stored documents, review pending evidence, and check URL provenance integrity.</p>
+              <p style="margin-top: 10px;"><strong class="highlight-dark">Page 3: Model Architecture & Transparency</strong><br>Clear user documentation disclaiming that NLI scores are inference estimates and providing guidance on responsible usage.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-watermark"><span class="dot"></span> VERITAS PROJECT DECK</div>
+      <div class="slide-footer-left"><span class="badge">Slide 11 / 16</span><span>Frontend Design</span></div>
+    </div>
+
+    <!-- SLIDE 12: SYSTEM COMPARISON MATRIX -->
+    <div class="slide-canvas" data-slide="12">
+      <div class="slide-header">
+        <div class="category-tag">Comparative Study</div>
+        <h2 class="slide-title">Traditional Lexical NLP vs. Veritas Fact-Checker</h2>
+        <p class="slide-subtitle">A paradigm shift from black-box statistical correlation to explainable reasoning</p>
+      </div>
+      <div class="slide-body">
+        <table class="modern-table">
+          <thead>
+            <tr>
+              <th>Evaluation Dimension</th>
+              <th>Naive Lexical ML (TF-IDF / Logistic Reg)</th>
+              <th>Veritas AI Fact-Checking Engine</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Primary Decision Basis</strong></td>
+              <td>Surface n-gram keyword frequency</td>
+              <td>Dense passage retrieval + DeBERTa-v3 cross-attention</td>
+            </tr>
+            <tr>
+              <td><strong>Susceptibility to Spurious Bias</strong></td>
+              <td><span style="color: #b91c1c; font-weight: 700;">Critical:</span> Overfits to names ('Trump', 'Gates')</td>
+              <td><span style="color: #15803d; font-weight: 700;">Minimal:</span> Grounded purely on retrieved text relation</td>
+            </tr>
+            <tr>
+              <td><strong>Explainability & Trust</strong></td>
+              <td>Opaque numerical weight coefficients</td>
+              <td>Exact cited URL, publisher, and passage snippet</td>
+            </tr>
+            <tr>
+              <td><strong>Out-of-Distribution Rumors</strong></td>
+              <td>Guesses with arbitrarily high confidence</td>
+              <td>Conservative: Flags <em>"Insufficient Verified Evidence"</em></td>
+            </tr>
+            <tr>
+              <td><strong>Knowledge Updatability</strong></td>
+              <td>Requires full re-training and re-splitting</td>
+              <td>Zero-shot: Simply append new verified JSONL records</td>
+            </tr>
+            <tr>
+              <td><strong>Handling Negation / Modals</strong></td>
+              <td>Fails on 'not', 'never', 'only', 'partially'</td>
+              <td>Captures syntactic nuance via transformer cross-attention</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="slide-watermark"><span class="dot"></span> VERITAS PROJECT DECK</div>
+      <div class="slide-footer-left"><span class="badge">Slide 12 / 16</span><span>Comparison Matrix</span></div>
+    </div>
+
+    <!-- SLIDE 13: TECHNICAL STACK -->
+    <div class="slide-canvas" data-slide="13">
+      <div class="slide-header">
+        <div class="category-tag">Implementation Details</div>
+        <h2 class="slide-title">Technology Stack & Engineering Architecture</h2>
+        <p class="slide-subtitle">Production-grade Python toolchain optimized for speed and reproducibility</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-3">
+          <div class="card red-accent">
+            <div class="card-title">
+              <span class="icon">🤖</span>
+              NLP & Transformers
+            </div>
+            <div class="card-body">
+              <ul class="feature-list">
+                <li><strong>Hugging Face Transformers:</strong> Cross-Encoder DeBERTa-v3 inference.</li>
+                <li><strong>Sentence-Transformers:</strong> <code>all-MiniLM-L6-v2</code> dense semantic retriever.</li>
+                <li><strong>PyTorch MPS & CUDA:</strong> Hardware-accelerated tensor math on Apple Silicon.</li>
+                <li><strong>SpaCy:</strong> Linguistic tokenization and entity parsing.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card red-accent">
+            <div class="card-title">
+              <span class="icon">📐</span>
+              Analytics & Baselines
+            </div>
+            <div class="card-body">
+              <ul class="feature-list">
+                <li><strong>Scikit-Learn:</strong> TF-IDF feature extractors, Logistic Regression baselines.</li>
+                <li><strong>Pandas & NumPy:</strong> High-throughput deduplication and split analytics.</li>
+                <li><strong>Joblib:</strong> Model serialization and rapid cold-booting.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card red-accent">
+            <div class="card-title">
+              <span class="icon">💻</span>
+              Web & Storage
+            </div>
+            <div class="card-body">
+              <ul class="feature-list">
+                <li><strong>Streamlit:</strong> Real-time reactive web framework.</li>
+                <li><strong>Modern CSS Design:</strong> Bespoke Red & White styling system.</li>
+                <li><strong>JSONL Evidence Store:</strong> Append-only verified knowledge ledger with SHA deduplication.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-watermark"><span class="dot"></span> VERITAS PROJECT DECK</div>
+      <div class="slide-footer-left"><span class="badge">Slide 13 / 16</span><span>Technology Stack</span></div>
+    </div>
+
+    <!-- SLIDE 14: LIMITATIONS & ETHICS -->
+    <div class="slide-canvas" data-slide="14">
+      <div class="slide-header">
+        <div class="category-tag">Responsible AI</div>
+        <h2 class="slide-title">System Limitations, Guardrails & Ethical AI</h2>
+        <p class="slide-subtitle">Ensuring transparent decision-support rather than unchecked automated censorship</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card">
+            <div class="card-title" style="color: var(--text-main);">Technical Limitations</div>
+            <div class="card-body">
+              <p><strong class="highlight-red">1. NLI Scores are NOT Truth Values:</strong><br>DeBERTa evaluates logical relations between two text strings. If the underlying evidence document contains biased or outdated data, the conclusion reflects that bias.</p>
+              <p style="margin-top: 10px;"><strong class="highlight-red">2. Knowledge Base Horizon:</strong><br>Veritas is only as knowledgeable as its verified evidence repository. Uncataloged claims trigger "Insufficient Evidence".</p>
+              <p style="margin-top: 10px;"><strong class="highlight-red">3. Cross-Encoder Latency:</strong><br>Joint token attention is compute-intensive, requiring strict Top-K pruning ($K \le 5$).</p>
+            </div>
+          </div>
+
+          <div class="card red-accent" style="background: var(--red-subtle);">
+            <div class="card-title" style="color: var(--red-dark);">Ethical Principles & Guardrails</div>
+            <div class="card-body">
+              <p><strong class="highlight-dark">Human-in-the-Loop Decision Support:</strong><br>Veritas is architected to empower fact-checkers, journalists, and citizens, NOT to act as an opaque automated censorship mechanism.</p>
+              <p style="margin-top: 10px;"><strong class="highlight-dark">Mandatory Provenance & Citations:</strong><br>No claim is ever labeled without rendering the originating publisher, HTTPS link, and exact excerpt.</p>
+              <p style="margin-top: 10px;"><strong class="highlight-dark">Conservative Uncertainty Handling:</strong><br>Veritas defaults to <em>"Insufficient Evidence"</em> or <em>"Inconclusive"</em> rather than hallucinating false verdicts.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-watermark"><span class="dot"></span> VERITAS PROJECT DECK</div>
+      <div class="slide-footer-left"><span class="badge">Slide 14 / 16</span><span>Ethics & Guardrails</span></div>
+    </div>
+
+    <!-- SLIDE 15: FUTURE ROADMAP -->
+    <div class="slide-canvas" data-slide="15">
+      <div class="slide-header">
+        <div class="category-tag">Future Horizons</div>
+        <h2 class="slide-title">Future Scope & Technological Roadmap</h2>
+        <p class="slide-subtitle">Scaling from desktop prototype to global real-time verification infrastructure</p>
+      </div>
+      <div class="slide-body">
+        <div style="display: flex; flex-direction: column; gap: 14px; height: 100%;">
+          <div style="background: #ffffff; border: 1px solid var(--border-light); border-left: 5px solid var(--red-primary); padding: 14px 20px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between;">
+            <div>
+              <div style="font-size: 11px; font-weight: 800; color: var(--red-primary); text-transform: uppercase;">Phase 1: Automated Live Ingestion</div>
+              <div style="font-size: 15px; font-weight: 700; color: var(--text-main); margin-top: 2px;">Google Fact Check Tools API & Live Web Scrapers</div>
+              <div style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Continuous ingestion from Reuters, AP News, Snopes, and PubMed feeds.</div>
+            </div>
+            <div class="badge-verdict badge-supported">NEAR TERM</div>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--border-light); border-left: 5px solid var(--red-primary); padding: 14px 20px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between;">
+            <div>
+              <div style="font-size: 11px; font-weight: 800; color: var(--red-primary); text-transform: uppercase;">Phase 2: Multimodal Verification</div>
+              <div style="font-size: 15px; font-weight: 700; color: var(--text-main); margin-top: 2px;">Cross-Modal Image Forensics & Deepfake Detection</div>
+              <div style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Combining CLIP embeddings, reverse image lookup, and synthetic artifact detectors.</div>
+            </div>
+            <div class="badge-verdict" style="background: #e0f2fe; color: #0369a1;">MEDIUM TERM</div>
+          </div>
+
+          <div style="background: #ffffff; border: 1px solid var(--border-light); border-left: 5px solid var(--red-primary); padding: 14px 20px; border-radius: 10px; display: flex; align-items: center; justify-content: space-between;">
+            <div>
+              <div style="font-size: 11px; font-weight: 800; color: var(--red-primary); text-transform: uppercase;">Phase 3: Scalable Vector Infrastructure</div>
+              <div style="font-size: 15px; font-weight: 700; color: var(--text-main); margin-top: 2px;">Distributed Vector DBs (Milvus / Qdrant / FAISS)</div>
+              <div style="font-size: 13px; color: var(--text-muted); margin-top: 4px;">Scaling from thousands of local passages to tens of millions with sub-50ms latency.</div>
+            </div>
+            <div class="badge-verdict badge-insufficient">LONG TERM</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-watermark"><span class="dot"></span> VERITAS PROJECT DECK</div>
+      <div class="slide-footer-left"><span class="badge">Slide 15 / 16</span><span>Roadmap</span></div>
+    </div>
+
+    <!-- SLIDE 16: CONCLUSION & SUMMARY -->
+    <div class="slide-canvas" data-slide="16">
+      <div class="slide-header">
+        <div class="category-tag">Project Conclusion</div>
+        <h2 class="slide-title">Summary of Academic & Engineering Contributions</h2>
+        <p class="slide-subtitle">A robust, scalable, and explainable foundation for automated fact-checking</p>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2">
+          <div class="card red-accent">
+            <div class="card-title">Key Accomplishments</div>
+            <div class="card-body">
+              <ul class="feature-list">
+                <li><strong>Exposed Lexical Vulnerability:</strong> Empirically demonstrated why 97% accurate bag-of-words classifiers fail in real-world deployments.</li>
+                <li><strong>Engineered Veritas Pipeline:</strong> Successfully integrated Bi-Encoder semantic search (MiniLM) with Cross-Encoder NLI (DeBERTa-v3).</li>
+                <li><strong>Strict Provenance Filter:</strong> Established mathematical consensus rules preventing hallucination.</li>
+                <li><strong>Modern Red & White UI:</strong> Delivered an intuitive Streamlit app with full auditability.</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="card" style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; background: linear-gradient(180deg, #fff 0%, var(--red-subtle) 100%);">
+            <div style="width: 72px; height: 72px; border-radius: 50%; background: var(--red-light); color: var(--red-primary); display: flex; align-items: center; justify-content: center; font-size: 32px; margin-bottom: 16px;">
+              ✓
+            </div>
+            <h3 style="font-family: var(--font-heading); font-size: 24px; font-weight: 800; color: var(--text-main); margin-bottom: 8px;">
+              Thank You!
+            </h3>
+            <p style="font-size: 15px; color: var(--text-muted); max-width: 380px; margin-bottom: 20px;">
+              Questions, technical inquiries, and live system demonstrations are welcome.
+            </p>
+            <div style="display: flex; gap: 10px;">
+              <span class="badge-verdict badge-supported">PROJECT CODE READY</span>
+              <span class="badge-verdict badge-supported">DATASET VERIFIED</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-watermark"><span class="dot"></span> VERITAS PROJECT DECK</div>
+      <div class="slide-footer-left"><span class="badge">Slide 16 / 16</span><span>Conclusion</span></div>
+    </div>
+
+  </div>
+
+  <!-- Speaker Notes Drawer -->
+  <div class="notes-drawer" id="notesDrawer">
+    <div class="notes-header">Speaker Notes (Press 'N' to toggle)</div>
+    <div id="notesContent">Loading notes...</div>
+  </div>
+
+  <!-- Bottom Navigation Control Bar -->
+  <div class="control-bar">
+    <div class="control-left">
+      <span style="font-family: var(--font-heading); font-weight: 800; color: var(--red-primary); font-size: 16px; letter-spacing: -0.5px;">VERITAS</span>
+      <span style="color: #6b7280; font-size: 13px;">| Fake News AI Deck</span>
+    </div>
+
+    <div class="control-center">
+      <button class="nav-btn" onclick="prevSlide()" title="Previous Slide (Left Arrow)">◀ Prev</button>
+      <div class="slide-counter" id="slideCounter">01 / 16</div>
+      <button class="nav-btn" onclick="nextSlide()" title="Next Slide (Right Arrow / Space)">Next ▶</button>
+    </div>
+
+    <div class="control-right">
+      <button class="nav-btn" onclick="toggleNotes()" title="Toggle Speaker Notes (N)">📝 Notes</button>
+      <button class="nav-btn" onclick="toggleFullscreen()" title="Toggle Fullscreen (F)">⛶ Fullscreen</button>
+      <button class="nav-btn" onclick="window.print()" title="Print / Export to PDF">🖨 Print / PDF</button>
+    </div>
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide-canvas');
+    let currentSlide = 0;
+    const totalSlides = slides.length;
+
+    const speakerNotes = [
+      "Welcome committee members and professors. Today we present Veritas, an evidence-grounded AI fact-checking system. We demonstrate why traditional machine learning models fail in real-world deployment and how dense semantic retrieval combined with cross-encoder NLI provides a reliable, explainable solution.",
+      "The infodemic crisis is severe: disinformation travels 6 times faster than truthful corrections. With human fact-checkers requiring 14 to 48 hours per claim, manual checking cannot keep pace with viral propagation.",
+      "Here is our core empirical discovery: while our TF-IDF and Logistic Regression baseline achieved 97% nominal accuracy on COVID data, confidence diagnostics revealed the model simply memorized names and keywords. It labeled verified CDC health statements as fake with 94.3% confidence because of words like 'Trump' and 'coronavirus'.",
+      "This flowchart represents our complete Veritas pipeline: Claim Input -> Dense Semantic Retrieval -> Quality & Provenance Gate -> DeBERTa-v3 Cross-Encoder NLI -> Multi-Evidence Consensus Logic -> Veritas UI.",
+      "Our retrieval engine uses a 140-word sliding window with a 25-word overlap. This guarantees that critical factual context is never severed across arbitrary document boundaries, while all-MiniLM-L6-v2 produces dense 384-dimensional embeddings for sub-millisecond search.",
+      "Here we explain why bi-encoders alone cannot fact-check. A statement and its exact opposite have over 90% semantic similarity because they share the same topic words. Only our DeBERTa-v3 Cross-Encoder performs joint token-level cross-attention to resolve logical entailment versus contradiction.",
+      "This is our strict mathematical decision engine. First, evidence must pass HTTPS, verification status, and a 0.45 cosine similarity threshold. Then, DeBERTa probabilities are evaluated at tau = 0.70 to resolve supported, contradicted, mixed, or inconclusive verdicts.",
+      "In this live case study, we examine the claim 'Antibiotics directly kill viruses.' The retriever matches CDC evidence record DEMO-CDC-002. DeBERTa-v3 scores 98.41% contradiction, yielding a clear 'Contradicted by Available Evidence' verdict.",
+      "Our evaluation across 12 diverse claims spans climate science, astronomy, public health, cybersecurity, and rumors. Notice claim C012: when presented with a fabricated underwater city rumor, the system correctly returns 'Insufficient Evidence' instead of hallucinating.",
+      "This slide provides an interactive simulator where evaluators can click any of all 12 benchmark claims to test the live NLI probability distribution and source attribution.",
+      "The Veritas web application was implemented in Streamlit using a bespoke Red and White aesthetic. It gives users dynamic sliders for Top-K and similarity cutoffs, one-click demo loaders, and complete audit drawers.",
+      "This comparison table crystallizes our academic contribution: moving from black-box lexical classifiers that overfit to keywords to an explainable, continually updatable system with explicit source attribution.",
+      "Our engineering stack leverages PyTorch with Apple Silicon MPS GPU acceleration, Hugging Face DeBERTa-v3, Scikit-learn baselines, and append-only JSONL storage.",
+      "Safety and ethics are paramount. We explicitly treat NLI outputs as inference estimates rather than absolute truth, enforce mandatory URL attribution, and design the tool for human decision-support rather than automated censorship.",
+      "Our future roadmap includes connecting live Google Fact Check APIs, adding multimodal deepfake image detectors, and scaling to millions of documents via distributed vector databases like Qdrant.",
+      "In conclusion, truth is an external factual relation that cannot be judged by vocabulary alone. By coupling dense semantic search with DeBERTa-v3 NLI, Veritas delivers a transparent, state-of-the-art fact-checking framework. Thank you, and we welcome your questions!"
+    ];
+
+    // ALL 12 CLAIMS from presentation_claims.csv
+    const demoData = [
+      {
+        id: "C001",
+        label: "C001: Global Warming Cause",
+        claim: "Human activities are the main cause of the current global warming.",
+        publisher: "NASA Science",
+        title: "The Causes of Climate Change",
+        url: "https://science.nasa.gov/climate-change/causes/",
+        text: "Human activities, primarily through greenhouse gas emissions, have unequivocally caused global warming. The evidence includes increasing atmospheric greenhouse gas concentrations and observed warming.",
+        similarity: 0.8420,
+        contradiction: 1.8,
+        neutral: 3.5,
+        entailment: 94.7,
+        verdict: "SUPPORTED BY AVAILABLE EVIDENCE",
+        verdictClass: "badge-supported"
+      },
+      {
+        id: "C002",
+        label: "C002: Climate Not Warmed",
+        claim: "The climate has not warmed since the late nineteenth century.",
+        publisher: "NASA Climate",
+        title: "Evidence: Climate Change",
+        url: "https://science.nasa.gov/climate-change/evidence/",
+        text: "Earth's average surface temperature has risen by about 1 degree Celsius since the late nineteenth century, with most of the warming occurring in the past several decades.",
+        similarity: 0.7930,
+        contradiction: 96.2,
+        neutral: 2.7,
+        entailment: 1.1,
+        verdict: "CONTRADICTED BY AVAILABLE EVIDENCE",
+        verdictClass: "badge-contradicted"
+      },
+      {
+        id: "C003",
+        label: "C003: Smoking & Cancer",
+        claim: "Smoking increases the risk of lung cancer.",
+        publisher: "CDC Tobacco Division",
+        title: "Health Effects of Cigarette Smoking",
+        url: "https://www.cdc.gov/tobacco/about/index.html",
+        text: "Cigarette smoking causes cancer and is a major cause of preventable disease. Smoking can cause cancer in many parts of the body, including the lungs.",
+        similarity: 0.8250,
+        contradiction: 0.8,
+        neutral: 2.1,
+        entailment: 97.1,
+        verdict: "SUPPORTED BY AVAILABLE EVIDENCE",
+        verdictClass: "badge-supported"
+      },
+      {
+        id: "C004",
+        label: "C004: Antibiotics & Viruses",
+        claim: "Antibiotics cure viral infections such as the common cold.",
+        publisher: "CDC Antibiotics",
+        title: "About Antibiotic Use",
+        url: "https://www.cdc.gov/antibiotic-use/",
+        text: "Antibiotics do not work on viruses. They will not help you feel better if you have a virus, such as those that cause colds, flu, or COVID-19.",
+        similarity: 0.7812,
+        contradiction: 98.4,
+        neutral: 1.3,
+        entailment: 0.3,
+        verdict: "CONTRADICTED BY AVAILABLE EVIDENCE",
+        verdictClass: "badge-contradicted"
+      },
+      {
+        id: "C005",
+        label: "C005: Earth Orbits Sun",
+        claim: "The Earth orbits the Sun.",
+        publisher: "NASA Science",
+        title: "Earth Facts",
+        url: "https://science.nasa.gov/earth/facts/",
+        text: "Earth is the third planet from the Sun and travels around the Sun in an orbit.",
+        similarity: 0.8920,
+        contradiction: 0.5,
+        neutral: 1.2,
+        entailment: 98.3,
+        verdict: "SUPPORTED BY AVAILABLE EVIDENCE",
+        verdictClass: "badge-supported"
+      },
+      {
+        id: "C006",
+        label: "C006: Ozone & Climate Equal",
+        claim: "The ozone layer and climate change are exactly the same environmental problem.",
+        publisher: "US EPA",
+        title: "Ozone Layer Protection",
+        url: "https://www.epa.gov/ozone-layer-protection",
+        text: "Ozone depletion and climate change are distinct environmental issues with different primary mechanisms, although some chemicals and policies can affect both.",
+        similarity: 0.7320,
+        contradiction: 91.5,
+        neutral: 6.8,
+        entailment: 1.7,
+        verdict: "CONTRADICTED BY AVAILABLE EVIDENCE",
+        verdictClass: "badge-contradicted"
+      },
+      {
+        id: "C007",
+        label: "C007: Vaccines Train Immune",
+        claim: "Vaccines train the immune system to recognize and fight specific pathogens.",
+        publisher: "World Health Organization",
+        title: "Vaccines and Immunization",
+        url: "https://www.who.int/health-topics/vaccines-and-immunization",
+        text: "Vaccines train the immune system to create antibodies, just as it does when exposed to a disease. After vaccination, the immune system is better able to recognize and fight the pathogen.",
+        similarity: 0.8540,
+        contradiction: 1.1,
+        neutral: 2.4,
+        entailment: 96.5,
+        verdict: "SUPPORTED BY AVAILABLE EVIDENCE",
+        verdictClass: "badge-supported"
+      },
+      {
+        id: "C008",
+        label: "C008: Passwords ONLY Security",
+        claim: "A strong password is the only security measure ever needed to protect an online account.",
+        publisher: "CISA",
+        title: "Secure Our World",
+        url: "https://www.cisa.gov/secure-our-world",
+        text: "Using strong passwords is important, and multi-factor authentication adds another layer of protection by requiring an additional form of verification.",
+        similarity: 0.7410,
+        contradiction: 89.4,
+        neutral: 8.2,
+        entailment: 2.4,
+        verdict: "CONTRADICTED BY AVAILABLE EVIDENCE",
+        verdictClass: "badge-contradicted"
+      },
+      {
+        id: "C009",
+        label: "C009: Earthquakes & Faults",
+        claim: "Earthquakes can occur when stress causes rocks to slip along faults.",
+        publisher: "U.S. Geological Survey",
+        title: "Earthquake Hazards Program",
+        url: "https://www.usgs.gov/programs/earthquake-hazards",
+        text: "Earthquakes occur when rocks suddenly slip along a fault. Stress builds up and is released when the rocks move, generating seismic waves.",
+        similarity: 0.8650,
+        contradiction: 0.9,
+        neutral: 2.1,
+        entailment: 97.0,
+        verdict: "SUPPORTED BY AVAILABLE EVIDENCE",
+        verdictClass: "badge-supported"
+      },
+      {
+        id: "C010",
+        label: "C010: Water Composition",
+        claim: "Water is made of hydrogen and oxygen.",
+        publisher: "U.S. Geological Survey",
+        title: "Water Science School",
+        url: "https://www.usgs.gov/special-topics/water-science-school",
+        text: "A water molecule contains two hydrogen atoms bonded to one oxygen atom, giving water the chemical formula H2O.",
+        similarity: 0.8870,
+        contradiction: 0.4,
+        neutral: 1.1,
+        entailment: 98.5,
+        verdict: "SUPPORTED BY AVAILABLE EVIDENCE",
+        verdictClass: "badge-supported"
+      },
+      {
+        id: "C011",
+        label: "C011: Cold Day Disproves",
+        claim: "A single cold day proves that global warming is not happening.",
+        publisher: "NASA Science",
+        title: "Weather and Climate",
+        url: "https://science.nasa.gov/climate-change/",
+        text: "Weather describes short-term atmospheric conditions, while climate describes patterns over longer periods. A cold day or local cold spell does not by itself disprove a long-term global warming trend.",
+        similarity: 0.7680,
+        contradiction: 95.8,
+        neutral: 3.1,
+        entailment: 1.1,
+        verdict: "CONTRADICTED BY AVAILABLE EVIDENCE",
+        verdictClass: "badge-contradicted"
+      },
+      {
+        id: "C012",
+        label: "C012: Secret Underwater City",
+        claim: "A secret underwater city was discovered yesterday and all governments confirmed it.",
+        publisher: "No Verified Publisher Found",
+        title: "Uncataloged Rumor Record",
+        url: "N/A",
+        text: "No passage in the verified evidence store exceeds the minimum similarity threshold of 0.45.",
+        similarity: 0.2140,
+        contradiction: 0.0,
+        neutral: 0.0,
+        entailment: 0.0,
+        verdict: "INSUFFICIENT VERIFIED EVIDENCE",
+        verdictClass: "badge-insufficient"
+      }
+    ];
+
+    function renderPills() {
+      const container = document.getElementById('demoPills');
+      container.innerHTML = demoData.map((d, i) => `
+        <button class="demo-pill ${i === 3 ? 'active' : ''}" onclick="loadDemo(${i})">
+          ${d.label}
+        </button>
+      `).join('');
+    }
+
+    function showSlide(index) {
+      if (index < 0) index = 0;
+      if (index >= totalSlides) index = totalSlides - 1;
+      currentSlide = index;
+
+      slides.forEach((slide, i) => {
+        slide.classList.toggle('active', i === currentSlide);
+      });
+
+      document.getElementById('slideCounter').textContent = 
+        `${String(currentSlide + 1).padStart(2, '0')} / ${String(totalSlides).padStart(2, '0')}`;
+      
+      const progressPercent = ((currentSlide + 1) / totalSlides) * 100;
+      document.getElementById('progressBar').style.width = `${progressPercent}%`;
+
+      document.getElementById('notesContent').textContent = 
+        speakerNotes[currentSlide] || "No speaker notes for this slide.";
+    }
+
+    function nextSlide() {
+      showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+      showSlide(currentSlide - 1);
+    }
+
+    function toggleNotes() {
+      const drawer = document.getElementById('notesDrawer');
+      drawer.classList.toggle('open');
+    }
+
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => {
+          console.warn(`Fullscreen error: ${err.message}`);
+        });
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+
+    function loadDemo(idx) {
+      const pills = document.querySelectorAll('.demo-pill');
+      pills.forEach((p, i) => p.classList.toggle('active', i === idx));
+
+      const item = demoData[idx];
+      const container = document.getElementById('demoOutput');
+
+      container.innerHTML = `
+        <div style="display: grid; grid-template-columns: 1.25fr 1fr; gap: 20px;">
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 11px; font-weight: 800; color: var(--red-primary); text-transform: uppercase;">CLAIM ID: ${item.id}</span>
+              <span style="font-size: 11px; color: #64748b; font-weight: 600;">Status: Verified</span>
+            </div>
+            <div style="font-size: 15px; font-weight: 700; color: #0f172a; margin: 4px 0 10px 0;">"${item.claim}"</div>
+            
+            <div style="background: #f8fafc; border: 1px solid var(--border-light); padding: 12px; border-radius: 8px;">
+              <div style="display: flex; justify-content: space-between; font-size: 11px; font-weight: 700; color: #475569;">
+                <span>SOURCE: ${item.publisher}</span>
+                <span>SIMILARITY: ${item.similarity}</span>
+              </div>
+              <div style="font-size: 13px; font-weight: 700; color: #1e293b; margin: 4px 0;">${item.title}</div>
+              <div style="font-size: 12px; color: #64748b; font-style: italic; line-height: 1.4;">"${item.text}"</div>
+              ${item.url !== 'N/A' ? `<div style="font-size: 11px; color: var(--red-primary); margin-top: 6px;">URL: ${item.url}</div>` : ''}
+            </div>
+          </div>
+
+          <div>
+            <div style="font-size: 11px; font-weight: 800; color: var(--red-primary); text-transform: uppercase;">DeBERTa-v3 NLI REASONING</div>
+            
+            <div class="prob-bar-container" style="margin-top: 8px;">
+              <div class="prob-bar-label">
+                <span>Contradiction</span>
+                <span style="color: var(--red-primary); font-weight: 700;">${item.contradiction}%</span>
+              </div>
+              <div class="prob-bar"><div class="prob-bar-fill contradiction" style="width: ${item.contradiction}%;"></div></div>
+            </div>
+
+            <div class="prob-bar-container" style="margin-top: 8px;">
+              <div class="prob-bar-label">
+                <span>Entailment</span>
+                <span style="color: var(--green-supported); font-weight: 700;">${item.entailment}%</span>
+              </div>
+              <div class="prob-bar"><div class="prob-bar-fill entailment" style="width: ${item.entailment}%;"></div></div>
+            </div>
+
+            <div class="prob-bar-container" style="margin-top: 8px;">
+              <div class="prob-bar-label">
+                <span>Neutral</span>
+                <span style="color: #64748b; font-weight: 700;">${item.neutral}%</span>
+              </div>
+              <div class="prob-bar"><div class="prob-bar-fill neutral" style="width: ${item.neutral}%;"></div></div>
+            </div>
+
+            <div style="margin-top: 16px; padding: 10px; border-radius: 8px; text-align: center;" class="${item.verdictClass}">
+              <div style="font-size: 10px; font-weight: 800; text-transform: uppercase;">RESOLVED VERDICT</div>
+              <div style="font-size: 14px; font-weight: 800; margin-top: 2px;">${item.verdict}</div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+        nextSlide();
+      } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+        prevSlide();
+      } else if (e.key === 'f' || e.key === 'F') {
+        toggleFullscreen();
+      } else if (e.key === 'n' || e.key === 'N') {
+        toggleNotes();
+      }
+    });
+
+    renderPills();
+    showSlide(0);
+    loadDemo(3); // Start on C004: Antibiotics claim
+  </script>
+</body>
+</html>

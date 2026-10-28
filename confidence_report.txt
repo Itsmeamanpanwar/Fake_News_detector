@@ -1,0 +1,115 @@
+
+===========================================================================
+COVID CONFIDENCE ANALYSIS
+===========================================================================
+Test examples: 2159
+Incorrect predictions: 65
+
+10 most confident incorrect predictions:
+
+Actual: REAL
+Predicted: FAKE
+Predicted-class score: 0.9436
+Headline: Says of President Donald Trumpâ€™s actions on the coronavirus: â€œNo. 1, he fired the pandemic team two years ago. No. 2, he's been defunding the Centers for Disease Control.â€
+
+Actual: REAL
+Predicted: FAKE
+Predicted-class score: 0.9422
+Headline: â€œBill Gates told us about the coronavirus in 2015.â€
+
+Actual: FAKE
+Predicted: REAL
+Predicted-class score: 0.9181
+Headline: Ã¢â‚¬Å“Corona Virus claims a black belt. Chuck Norris, Dead at 80.Ã¢â‚¬Â
+
+Actual: REAL
+Predicted: FAKE
+Predicted-class score: 0.8949
+Headline: Even with no shutdown, Sweden has a lower COVID-19 infection rate than UK, Italy and Spain.
+
+Actual: REAL
+Predicted: FAKE
+Predicted-class score: 0.8917
+Headline: â€œNo city in the state can quarantine itself without state approval.â€
+
+Actual: REAL
+Predicted: FAKE
+Predicted-class score: 0.8888
+Headline: â€œAlmost 75 percent of the deaths from COVID-19 in the state of Texas are a result of people contracting COVID-19 who are age 65 and older.â€
+
+Actual: REAL
+Predicted: FAKE
+Predicted-class score: 0.8849
+Headline: â€œIt has been estimated that only 12% of workers in businesses that are likely to stay open during this crisis are receiving paid sick leave benefits as a result of the second coronavirus relief package."
+
+Actual: REAL
+Predicted: FAKE
+Predicted-class score: 0.8739
+Headline: â€˜Community spread has started and the situation is badâ€™: IMA Chairman
+
+Actual: REAL
+Predicted: FAKE
+Predicted-class score: 0.8587
+Headline: Did genetic mutations cause the coronavirus to become more dangerous.
+
+Actual: FAKE
+Predicted: REAL
+Predicted-class score: 0.8556
+Headline: â€œThe (corona)virus just isnâ€™t nearly as deadly as we thought it was.â€
+
+Saved: covid_confidence_errors.csv
+
+===========================================================================
+AFGHANISTAN CONFIDENCE ANALYSIS
+===========================================================================
+Test examples: 54
+Incorrect predictions: 9
+
+10 most confident incorrect predictions:
+
+Actual: FAKE
+Predicted: REAL
+Predicted-class score: 0.6337
+Headline: Taliban sentenced 229 Christian missionaries to death
+
+Actual: FAKE
+Predicted: REAL
+Predicted-class score: 0.6065
+Headline: â€œWe had already issued several thousand Special Immigrant Visas .. to the (Afghan) translators, when I came into office.â€
+
+Actual: REAL
+Predicted: FAKE
+Predicted-class score: 0.5891
+Headline: The military left behind 27 humvees, light tactical vehicles that were replaced by MRAPs in Iraq and Afghanistan after they proved vulnerable to IED attacks
+
+Actual: FAKE
+Predicted: REAL
+Predicted-class score: 0.5542
+Headline: 229 Christian missionaries were sentenced to death in Afghanistan.
+
+Actual: REAL
+Predicted: FAKE
+Predicted-class score: 0.5384
+Headline: In President Barack Obamaâ€™s 2015 State of the Union address, "the words â€˜al-Qaidaâ€™ were never used, the first time those words have not been used in a State of the Union address since February 2001."
+
+Actual: REAL
+Predicted: FAKE
+Predicted-class score: 0.525
+Headline: About 40 people have been killed in shootings and clashes in the two months in the Himalayan region since Taliban overran Kabul on August
+
+Actual: REAL
+Predicted: FAKE
+Predicted-class score: 0.5235
+Headline: "He (Kirk) did violate Pentagon rules, twice actually, for improperly mingling politics with his military service."
+
+Actual: FAKE
+Predicted: REAL
+Predicted-class score: 0.517
+Headline: The United States spent â€œ2 trillion dollars to train and equip the Afghan military over the past 20 years. They fell in a week.â€
+
+Actual: REAL
+Predicted: FAKE
+Predicted-class score: 0.5031
+Headline: AFP image misrepresented as photo of Kabul blast
+
+Saved: afghanistan_confidence_errors.csv

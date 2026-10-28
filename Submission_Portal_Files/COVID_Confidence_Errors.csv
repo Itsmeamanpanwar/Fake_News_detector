@@ -1,0 +1,71 @@
+headline,actual,predicted,fake_score,real_score,actual_label,predicted_label,predicted_score
+"Says of President Donald Trumpâ€™s actions on the coronavirus: â€œNo. 1, he fired the pandemic team two years ago. No. 2, he's been defunding the Centers for Disease Control.â€",1,0,0.9435824270554786,0.056417572944521384,REAL,FAKE,0.9435824270554786
+â€œBill Gates told us about the coronavirus in 2015.â€,1,0,0.9422087563254729,0.057791243674527114,REAL,FAKE,0.9422087563254729
+"Ã¢â‚¬Å“Corona Virus claims a black belt. Chuck Norris, Dead at 80.Ã¢â‚¬Â",0,1,0.08193108446256647,0.9180689155374335,FAKE,REAL,0.9180689155374335
+"Even with no shutdown, Sweden has a lower COVID-19 infection rate than UK, Italy and Spain.",1,0,0.8949027030350679,0.10509729696493204,REAL,FAKE,0.8949027030350679
+â€œNo city in the state can quarantine itself without state approval.â€,1,0,0.8917130557665985,0.10828694423340149,REAL,FAKE,0.8917130557665985
+â€œAlmost 75 percent of the deaths from COVID-19 in the state of Texas are a result of people contracting COVID-19 who are age 65 and older.â€,1,0,0.8887500227761324,0.11124997722386763,REAL,FAKE,0.8887500227761324
+"â€œIt has been estimated that only 12% of workers in businesses that are likely to stay open during this crisis are receiving paid sick leave benefits as a result of the second coronavirus relief package.""",1,0,0.8848586336341185,0.1151413663658815,REAL,FAKE,0.8848586336341185
+â€˜Community spread has started and the situation is badâ€™: IMA Chairman,1,0,0.8739198819643762,0.12608011803562377,REAL,FAKE,0.8739198819643762
+Did genetic mutations cause the coronavirus to become more dangerous.,1,0,0.8586947415063867,0.1413052584936133,REAL,FAKE,0.8586947415063867
+â€œThe (corona)virus just isnâ€™t nearly as deadly as we thought it was.â€,0,1,0.14440902302629632,0.8555909769737037,FAKE,REAL,0.8555909769737037
+"Says of the coronavirus threat, â€œthere was not a single suggestion by anyone, a doctor, a scientist, a political figure, that we needed to cancel Mardi Gras.â€",1,0,0.8448954524356891,0.1551045475643109,REAL,FAKE,0.8448954524356891
+"â€œInfection rates in Allegany, Cattaraugus and Chautauqua counties have consistently been among the lowest in the state.â€",1,0,0.834224577180726,0.16577542281927407,REAL,FAKE,0.834224577180726
+Coronavirus lockdown extended by two weeks from May 4 with some relaxations,1,0,0.8280649719561074,0.17193502804389263,REAL,FAKE,0.8280649719561074
+"â€œAt the end of the year, we put into that federal pot $116 billion more than we take out,â€ while Kentucky â€œtakes out $148 billion more than they put in.â€",1,0,0.8123021447344485,0.18769785526555152,REAL,FAKE,0.8123021447344485
+"â€œSo Oscar Health, the company tapped by Trump to profit from covid tests, is a Kushner company. Imagine that, profits over national safety.â€",1,0,0.8010119146481243,0.1989880853518757,REAL,FAKE,0.8010119146481243
+The Trump Administration is trying to take food assistance away from Wisconsin families when people are out of work and struggling.,1,0,0.7988446941658192,0.20115530583418081,REAL,FAKE,0.7988446941658192
+"â€œCocaine kills corona virus, scientists is shocked to discover that this drug can fight the virus.â€",0,1,0.20459903590638118,0.7954009640936188,FAKE,REAL,0.7954009640936188
+"Says President Trump said coronavirus testing makes the U.S. look bad, ""so I said to my people, â€˜Slow the testing down.â€™""",1,0,0.7868736895837198,0.2131263104162801,REAL,FAKE,0.7868736895837198
+All the soldiers in South Korea cannot go on leave because of the novel coronavirus(2019-nCoV) outbreak.,0,1,0.22392253378674942,0.7760774662132506,FAKE,REAL,0.7760774662132506
+Baahubali Director SS Rajamouli And His Family Test Negative For Coronavirus,1,0,0.7673137831150965,0.2326862168849036,REAL,FAKE,0.7673137831150965
+What kind of face mask best protects against coronavirus?,1,0,0.7607689653963355,0.23923103460366446,REAL,FAKE,0.7607689653963355
+Says President Donald Trump â€œtook more than a month to allocate Congressâ€™ emergency funding to tribes â€” and only did so after tribes sued.â€,1,0,0.7583106194249574,0.2416893805750427,REAL,FAKE,0.7583106194249574
+"COVID-19 vaccine current status: Here are the 10 top contenders for 
+coronavirus vaccines",1,0,0.7527485920096353,0.24725140799036466,REAL,FAKE,0.7527485920096353
+"Valencia sold duo due to financial strain caused by COVID-19, says president",1,0,0.7525549353815915,0.24744506461840848,REAL,FAKE,0.7525549353815915
+Photo shows a crowded New York City subway train during stay-at-home order.,1,0,0.7488943567731585,0.25110564322684154,REAL,FAKE,0.7488943567731585
+â€œAfricans living in China now being forced to sleep outside in the coldâ€ as â€œChinese nationals blame them for the rising number of new coronavirus cases in the country.â€,1,0,0.7457181213269227,0.2542818786730773,REAL,FAKE,0.7457181213269227
+WHO says Rwanda and NZ are fighting COVID-19 the right way [UPDATE],1,0,0.745330621836751,0.25466937816324897,REAL,FAKE,0.745330621836751
+"â€œKids are less likely to get it (COVID-19). You know, theyâ€™re less likely to spread. So I think thereâ€™s some pretty good data out there that will help alleviate some of the concerns.â€",1,0,0.7437581091089873,0.2562418908910126,REAL,FAKE,0.7437581091089873
+"Business owners can sue insurer over coronavirus losses, Missouri judge rules",1,0,0.7408995377958653,0.25910046220413474,REAL,FAKE,0.7408995377958653
+"World must ensure equal access for all to COVID-19 vaccines, drugs - WHO",1,0,0.7291521176228946,0.2708478823771054,REAL,FAKE,0.7291521176228946
+"Largest human trial of Indias coronavirus vaccine to begin at Delhi AIIMS 
+from Monday",1,0,0.7194004637684546,0.2805995362315454,REAL,FAKE,0.7194004637684546
+"Coronavirus: How Indiaâ€™s cartoonists have depicted the migrant workersâ€™ 
+exodus",1,0,0.7148326404970778,0.28516735950292216,REAL,FAKE,0.7148326404970778
+"Telangana Governor highlights role of chamber of commerce, industry in Covid-19 crisis mitigation",1,0,0.7033327043084937,0.2966672956915063,REAL,FAKE,0.7033327043084937
+Emory Sports Cardiologist discusses athlete's heart risks following COVID-19,1,0,0.702704018085045,0.297295981914955,REAL,FAKE,0.702704018085045
+"â€œUntil this week, they [OSHA] werenâ€™t even enforcing these guidelines [for coronavirus]. Still today, OSHA is not specifying which rules employees must follow or how to keep their workers safe and healthy.â€",1,0,0.7006516192351602,0.2993483807648398,REAL,FAKE,0.7006516192351602
+WHO warned of a new Nipah virus outbreak.,0,1,0.3169397214590213,0.6830602785409787,FAKE,REAL,0.6830602785409787
+"Non immigrant like H1B visa pivotal to Post Covid 19 recovery: US tech 
+giants to Trump",1,0,0.67870828309302,0.32129171690698,REAL,FAKE,0.67870828309302
+Information video .. 10 information about the first hospital in Wuhan to treat people with corona,1,0,0.6784119023329269,0.32158809766707314,REAL,FAKE,0.6784119023329269
+Lorain Has 32nd Most COVID-19 Spread Among Ohio Counties: Ranking,1,0,0.6687731048758588,0.33122689512414116,REAL,FAKE,0.6687731048758588
+"Republicans â€œhave shown themselves willing to cut millions off their health insurance and eliminate preexisting condition protections for millions more, even in the middle of this public health crisis.""",1,0,0.6658498532474226,0.3341501467525773,REAL,FAKE,0.6658498532474226
+Says Nancy Pelosiâ€™s coronavirus bill includes â€œtax credits for solar and wind energy â€¦ retirement plans for community newspaper employees â€¦ $300 million for PBS â€¦ climate change studiesâ€ and more.,1,0,0.6629207717057628,0.33707922829423725,REAL,FAKE,0.6629207717057628
+Says Harvard scientists say the coronavirus is â€œspreading so fast that it will infect 70% of humanity this year.â€,1,0,0.6620818697046615,0.3379181302953385,REAL,FAKE,0.6620818697046615
+"Social media, news platforms step up efforts to fight fake news on covid-19",1,0,0.6571123519644699,0.34288764803553007,REAL,FAKE,0.6571123519644699
+LIVE Blog: Coronavirus in Arizona - Latest case numbers,1,0,0.6544884145385418,0.3455115854614582,REAL,FAKE,0.6544884145385418
+"â€œWith regard to the cost, let me be very clear: HHS has designated the coronavirus test as an essential health benefit. That means, by definition, it's covered in the private health insurance of every American, as well as covered by Medicare and Medicaid.""",1,0,0.6526596239599001,0.3473403760401,REAL,FAKE,0.6526596239599001
+"Dr. Anthony â€œFauci told us thereâ€™s nothing to worry about. Thatâ€™s his quote, â€˜Thereâ€™s nothing to worry about.â€™â€",1,0,0.6523426356012405,0.3476573643987595,REAL,FAKE,0.6523426356012405
+Macau Casinos Closed For 2 Weeks Post CA,1,0,0.6484990303557718,0.3515009696442282,REAL,FAKE,0.6484990303557718
+Russia names first COVID-19 vaccine 'Sputnik V' in reference to space race,1,0,0.6206270598775576,0.3793729401224424,REAL,FAKE,0.6206270598775576
+US military brought the virus to Wuhan on October 2019.,0,1,0.39109239386758965,0.6089076061324104,FAKE,REAL,0.6089076061324104
+Coronavirus tracker: Microsoft launches COVID-19 tracking website,1,0,0.6051178758609466,0.39488212413905344,REAL,FAKE,0.6051178758609466
+"Scientists ""are shocked to discover that weed kills corona virusâ€",0,1,0.39559588360696085,0.6044041163930391,FAKE,REAL,0.6044041163930391
+"10,000 deaths In virus outbreak in Michigan, Washington, Idaho, North Dakota, Missouri, Mississippi.",0,1,0.39723509644809263,0.6027649035519074,FAKE,REAL,0.6027649035519074
+Masks pores are too large to block virus,0,1,0.40345601574962464,0.5965439842503754,FAKE,REAL,0.5965439842503754
+Hospitals get paid more to list patients as COVID-19.,1,0,0.5962566571649464,0.40374334283505364,REAL,FAKE,0.5962566571649464
+Govt panel on Covid-19 vaccine protocol discusses delivery mechanism,1,0,0.5741739015610288,0.42582609843897123,REAL,FAKE,0.5741739015610288
+"Ron Johnson said Americans should go back to work, because Ã¢â‚¬Å“death is an unavoidable part of life.Ã¢â‚¬Â",1,0,0.5725333888703956,0.4274666111296044,REAL,FAKE,0.5725333888703956
+Google has donated 59 billion (5900 crores) rupees to fight coronavirus to India.,0,1,0.4378252265069186,0.5621747734930814,FAKE,REAL,0.5621747734930814
+â€œYouâ€™re more likely to die of influenza right nowâ€ than the 2019 coronavirus.,1,0,0.5552557187109906,0.44474428128900945,REAL,FAKE,0.5552557187109906
+"Says that â€œover a 45-minute period that we had the press conferenceâ€ on the coronavirus on March 13, 2020, the stock market set â€œan all-time record.â€",1,0,0.5476292674114289,0.45237073258857113,REAL,FAKE,0.5476292674114289
+Coronas Virus Must Be Stopped Confirm Irish Music Fans,1,0,0.5369639069944507,0.46303609300554927,REAL,FAKE,0.5369639069944507
+"Says the 2019 coronavirus ""causes sudden death syndrome.""",0,1,0.47779769994331,0.52220230005669,FAKE,REAL,0.52220230005669
+"Coronavirus vaccine update: Good news about Oxford COVID-19 vaccine may be 
+expected today, says a new report",1,0,0.5204299576501654,0.4795700423498346,REAL,FAKE,0.5204299576501654
+North Carolina Ã¢â‚¬Å“hospital beds are typically 85% full across the state.Ã¢â‚¬Â,1,0,0.5187354376270354,0.4812645623729645,REAL,FAKE,0.5187354376270354
+Mohanlal Tests Negative For COVID-19: Resumes Shooting!,1,0,0.5161681856338987,0.4838318143661013,REAL,FAKE,0.5161681856338987
+Metro Manila had an 83% rise in COVID-19 cases in one day.,0,1,0.49694439013140146,0.5030556098685985,FAKE,REAL,0.5030556098685985

@@ -1,0 +1,10 @@
+id,expected_verdict,claim,notes
+SUP-001,POTENTIALLY SUPPORTED,Cigarette smoking causes lung cancer.,Matches verified CDC smoking evidence already in the project.
+SUP-002,POTENTIALLY SUPPORTED,Human activities are the main cause of current global warming.,Matches verified NASA climate-change evidence already in the project.
+SUP-003,POTENTIALLY SUPPORTED,Smoking can cause cancer in different parts of the human body.,Closely matches verified CDC smoking evidence; wording can affect NLI results.
+CON-001,POTENTIALLY CONTRADICTED,Antibiotics can cure viral infections.,Already tested successfully against verified CDC antibiotic-use evidence.
+CON-002,POTENTIALLY CONTRADICTED,Antibiotics directly kill viruses.,Targets the distinction covered by verified CDC antibiotic-use evidence.
+CON-003,POTENTIALLY CONTRADICTED,Antibiotics are effective medicines for treating infections caused by viruses.,Related paraphrase; verify the actual output because NLI models can be wording-sensitive.
+INS-001,INSUFFICIENT VERIFIED EVIDENCE,Drinking coffee makes humans immune to every infectious disease.,Already tested; no sufficiently relevant verified evidence is expected in the current store.
+INS-002,INSUFFICIENT VERIFIED EVIDENCE,Playing chess prevents every type of infectious disease.,Unrelated to the current verified evidence collection.
+INS-003,INSUFFICIENT VERIFIED EVIDENCE,The Moon is made entirely of cheese.,Unrelated to the current verified evidence collection.

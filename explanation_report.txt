@@ -1,0 +1,75 @@
+
+===========================================================================
+COVID PREDICTION EXPLANATIONS
+===========================================================================
+
+Text: Says of President Donald Trump's actions on the coronavirus: No. 1, he fired the pandemic team two years ago. No. 2, he's been defunding the Centers for Disease Control.
+Prediction: FAKE
+FAKE score: 0.9493
+REAL score: 0.0507
+
+Features pushing toward REAL:
+  says                                +0.2011
+  for                                 +0.0303
+  on                                  +0.0113
+  fired                               +0.0041
+  two                                 +0.0022
+
+Features pushing toward FAKE:
+  the                                 -0.5746
+  president                           -0.2376
+  the coronavirus                     -0.1979
+  been                                -0.1433
+  coronavirus                         -0.1322
+  no                                  -0.1283
+  years                               -0.1207
+  of                                  -0.0854
+  president donald                    -0.0826
+  the pandemic                        -0.0768
+
+===========================================================================
+AFGHANISTAN PREDICTION EXPLANATIONS
+===========================================================================
+
+Text: Taliban sentenced 229 Christian missionaries to death
+Prediction: REAL
+FAKE score: 0.3663
+REAL score: 0.6337
+
+Features pushing toward REAL:
+  to                                  +0.1404
+  taliban                             +0.1125
+  to death                            +0.0555
+  229                                 +0.0338
+  229 christian                       +0.0338
+  christian                           +0.0338
+  christian missionaries              +0.0338
+  missionaries                        +0.0338
+  sentenced                           +0.0338
+  death                               +0.0021
+
+Features pushing toward FAKE:
+
+Text: We had already issued several thousand Special Immigrant Visas to the Afghan translators when I came into office.
+Prediction: REAL
+FAKE score: 0.3982
+REAL score: 0.6018
+
+Features pushing toward REAL:
+  to                                  +0.1125
+  afghan                              +0.0837
+  the afghan                          +0.0668
+  already                             +0.0459
+  translators                         +0.0369
+  when                                +0.0294
+  had                                 +0.0221
+  came into                           +0.0179
+  into office                         +0.0179
+  office                              +0.0179
+
+Features pushing toward FAKE:
+  to the                              -0.0340
+  the                                 -0.0326
+  thousand                            -0.0148
+  we                                  -0.0089
+  several                             -0.0002
